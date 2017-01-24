@@ -1,19 +1,25 @@
+"use strict";
 angular.module('progesteroneLevel', [])
 	.controller('appCtl', function($scope){
 	    $scope.inputData = {
 	        lastPeriodDate: null,
-	        progesteroneLevel: null
+	        progesteroneLevel: null,
+	        isValid: function() {
+	            return !!(this.lastPeriodDate && this.progesteroneLevel);
+	        }
 	    }
 
+        function calculateWeek() {
+            return Math.round((new Date() - $scope.inputData.lastPeriodDate)/(1000*60*60*24*7));
+        }
 
-	    var ctx = $("#myChart");
+
 
 	    var avgData = [];
 	    var maxData = [];
 	    var minData = [];
 	    var labels = [];
 
-	    var chartData;
 
 	    for (let i = 4; i <= 40; i++) {
 	        let stdDev = 5 + Math.random() * 5;
@@ -24,15 +30,10 @@ angular.module('progesteroneLevel', [])
 	        labels.push(i);
 	    }
 
-	    var chartData = {
-
-	    }
-
-
-            let badBackgroundColor = 'rgba(255, 99, 132, 1)';
-            let badBorderColor = 'rgba(255, 99, 132, 0.2)';
-            let goodBackgroundColor = 'rgba(54, 162, 235, 1)';
-            let goodBorderColor = 'rgba(54, 162, 235, 0.2)';
+        let badBackgroundColor = 'rgba(255, 99, 132, 1)';
+        let badBorderColor = 'rgba(255, 99, 132, 0.2)';
+        let goodBackgroundColor = 'rgba(54, 162, 235, 1)';
+        let goodBorderColor = 'rgba(54, 162, 235, 0.2)';
 
         $scope.drawChart = function drawChart() {
             var dataForBubble = [];
@@ -40,10 +41,10 @@ angular.module('progesteroneLevel', [])
             var bubbleBackgroundColor = goodBackgroundColor;
             var bubbleBorderColor = goodBorderColor;
 
-            if ($scope.inputData.lastPeriodDate && $scope.inputData.progesteroneLevel){
+            if ($scope.inputData.isValid()){
                 let progesteroneLevel = $scope.inputData.progesteroneLevel;
-                let week = Math.round((new Date() - $scope.inputData.lastPeriodDate)/(1000*60*60*24*7));
-                let currentPoint = {x: week, y: $scope.inputData.progesteroneLevel, r: 3};
+                let week = calculateWeek();
+                let currentPoint = {x: week, y: progesteroneLevel, r: 3};
                 let empty = {};
                 for (let i = 4; i <= 40; i++){
                     if (i == currentPoint.x){
@@ -61,7 +62,8 @@ angular.module('progesteroneLevel', [])
 
             }
 
-            myChart = new Chart(ctx, {
+            let ctx = $("#myChart");
+            let myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
@@ -122,6 +124,9 @@ angular.module('progesteroneLevel', [])
                                 labelString: 'Tydzień ciąży'
                             }
                         }]
+                    },
+                    animation: {
+                        duration: 0
                     }
                 }
             });
@@ -137,7 +142,7 @@ angular.module('progesteroneLevel', [])
         $scope.initialize = $scope.drawChart;
 
         $scope.redrawChart = function(){
-            if ($scope.inputData.lastPeriodDate && $scope.inputData.progesteroneLevel){
+            if ($scope.inputData.isValid()){
                 $scope.drawChart();
             }
         }
