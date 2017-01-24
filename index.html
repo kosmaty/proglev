@@ -33,24 +33,23 @@
 </nav>
 <div class="container">
 
-    <form class="form-horizontal" data-ng-submit="redrawChart()">
+    <form class="form-horizontal" data-ng-submit="redrawChart()" name="inputForm">
         <div class="form-group">
             <label for="date" class="col-sm-4 control-label">Data ostatniej miesiączki</label>
             <div class="col-sm-4">
-                <input type="date" id="date" class="form-control" data-ng-model="inputData.lastPeriodDate"
-                      >
+                <input type="date" id="date" class="form-control" data-ng-model="inputData.lastPeriodDate" required/>
             </div>
         </div>
         <div class="form-group">
             <label for="value" class="col-sm-4 control-label">Poziom progesteronu</label>
             <div class="col-sm-4">
                 <input type="number" id="value" class="form-control" data-ng-model="inputData.progesteroneLevel"
-                        step="any">
+                        step="any" required>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-10">
-                <input type="submit" class="btn btn-primary" value="Sprawdź">
+                <input type="submit" class="btn btn-primary" value="Sprawdź" ng-disabled="inputForm.$invalid">
             </div>
         </div>
     </form>
