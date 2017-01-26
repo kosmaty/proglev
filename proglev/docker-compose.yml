@@ -1,0 +1,29 @@
+weba:
+  build: client
+  expose:
+      - 80
+
+webb:
+  build: client
+  expose:
+      - 80
+
+webc:
+  build: client
+  expose:
+      - 80
+
+proglev-proxy:
+  build: haproxy
+
+  links:
+   - weba
+   - webb
+   - webc
+  ports:
+   - "80:80"
+   - "9000:9000"
+
+  expose:
+   - "80"
+   - "9000"
