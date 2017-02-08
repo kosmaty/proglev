@@ -1,0 +1,16 @@
+<div data-ng-hide="editor.showing">
+  <span data-ng-bind-html="value | paragraph" data-ng-if="field != 'date'"/>
+  <span data-ng-bind-html="value | date:'yyyy-MM-dd' | paragraph" data-ng-if="field == 'date'"/>
+  <button class="btn btn-default btn-xs fa fa-pencil" data-ng-click="toggleEditor()"></button>
+</div>
+<div data-ng-show="editor.showing">
+  <div data-ng-if="field == 'textarea'">
+    <textarea data-ng-model="editor.value" class="form-control"></textarea>
+  </div>
+  <div data-ng-if="field != 'textarea'">
+    <input type="{{field}}" data-ng-model="editor.value" class="form-control">
+  </div>
+  <hr>
+  <button class="btn btn-success btn-xs" ng-click="save()">Zapisz</button>
+  <button class="btn btn-default btn-xs" ng-click="toggleEditor()">Anuluj</button>
+</div>

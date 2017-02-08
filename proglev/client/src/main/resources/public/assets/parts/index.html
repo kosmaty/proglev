@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nazwisko</th>
+            <th>Imię</th>
+            <th>Data ostatniej miesiączki</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pregnancy in pregnancies">
+            <td>{{pregnancy.patientLastName}}</td>
+            <td>{{pregnancy.patientFirstName}}</td>
+            <td>{{pregnancy.lastPeriodDate}}</td>
+            <td>
+                <a href="#!/pregnancy/{{pregnancy.id}}" class="btn btn-default btn-xs">Pokaż</a>
+                <button class="btn btn-danger btn-xs" ng-click="delete($index)">Usuń</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
