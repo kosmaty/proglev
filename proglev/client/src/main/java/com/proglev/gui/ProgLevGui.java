@@ -20,11 +20,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Locale;
 
 public class ProgLevGui extends Application {
 
     private ConfigurableApplicationContext ctx;
     public static void main(String[] args) {
+        Locale.setDefault(new Locale("pl"));
         launch(args);
     }
 

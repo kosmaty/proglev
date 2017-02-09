@@ -1,36 +1,55 @@
 package com.proglev.gui;
 
-import com.proglev.domain.Pregnancy;
 import com.proglev.domain.PregnancyRepository;
+import com.proglev.util.FxmlComponentLoader;
+import com.proglev.util.FxmlController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.Collection;
+import java.io.IOException;
 
-@Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@FxmlController
 public class ProgLevController {
     @FXML
-    private TableView<Pregnancy> pregancyTable;
+    BorderPane mainPanel;
 
     @Resource
     private PregnancyRepository pregnancyRepository;
 
-    @PostConstruct
-    public void setup(){
-        System.out.println("ProgLevController init");
-    }
+    @Resource
+    private FxmlComponentLoader loader;
+
+    @Resource
+    private AddPregnancyController addPregnancyController;
 
     @FXML
-    public void initialize(){
-        pregancyTable.getItems().clear();
-        pregancyTable.getItems().addAll(pregnancyRepository.getAll());
+    public void initialize() {
+        showTable();
     }
 
+    public void showTable() {
+        Node table = null;
+        try {
+            table = loader.load(getClass().getResource("pregnanciesTable.fxml"));
+            mainPanel.setCenter(table);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mainPanel.setCenter(new Label("Wystąpił błąd przy wyświetlaniu tabeli"));
+        }
+    }
+
+    public void showAddPregnancy() {
+        Node addPregnancyPane = null;
+        try {
+            addPregnancyPane = addPregnancyController.createComponent(this::showTable);
+            mainPanel.setCenter(addPregnancyPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mainPanel.setCenter(new Label("Wystąpił błąd przy wyświetlaniu formularza dodawania"));
+        }
+    }
 }

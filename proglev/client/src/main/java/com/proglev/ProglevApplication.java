@@ -11,6 +11,8 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import java.awt.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 public class ProglevApplication {
@@ -20,6 +22,11 @@ public class ProglevApplication {
         return new Jackson2ObjectMapperBuilder()
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .build();
+    }
+
+    @Bean
+    public ExecutorService pregnancyRepositoryExecutor(){
+        return Executors.newSingleThreadExecutor();
     }
 
     public static void main(String[] args) throws Exception {
