@@ -10,7 +10,8 @@
 
 <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" fx:id="pregancyTable"
            xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.proglev.gui.PregnanciesTableController">
+           fx:controller="com.proglev.gui.PregnanciesTableController"
+            onMouseClicked="#onMouseClicked">
     <columns>
         <TableColumn prefWidth="157.0" text="Imię">
             <cellValueFactory>

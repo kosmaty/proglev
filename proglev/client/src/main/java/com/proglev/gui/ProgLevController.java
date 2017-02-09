@@ -1,5 +1,6 @@
 package com.proglev.gui;
 
+import com.proglev.domain.Pregnancy;
 import com.proglev.domain.PregnancyRepository;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
@@ -25,6 +26,8 @@ public class ProgLevController {
 
     @Resource
     private AddPregnancyController addPregnancyController;
+    @Resource
+    private PregnancyDetailsController pregnancyDetailsController;
 
     @FXML
     public void initialize() {
@@ -47,6 +50,16 @@ public class ProgLevController {
         try {
             addPregnancyPane = addPregnancyController.createComponent(this::showTable);
             mainPanel.setCenter(addPregnancyPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mainPanel.setCenter(new Label("Wystąpił błąd przy wyświetlaniu formularza dodawania"));
+        }
+    }
+
+    public void showPregnancyDetails(Pregnancy pregnancy) {
+        try {
+            Node pregnancyDetailsPane = pregnancyDetailsController.createComponent(pregnancy);
+            mainPanel.setCenter(pregnancyDetailsPane);
         } catch (IOException e) {
             e.printStackTrace();
             mainPanel.setCenter(new Label("Wystąpił błąd przy wyświetlaniu formularza dodawania"));

@@ -18,3 +18,14 @@
 .proglev-main-menu > .button:hover {
     -fx-text-fill: #777777;
 }
+
+.proglev-name-header  {
+    -fx-font-size: 20px;
+}
+
+.proglev-name-header > .button {
+    -fx-background-color: -proglev-main-menu-background-color;
+    /*-fx-border-width: 1px;*/
+
+}
+
