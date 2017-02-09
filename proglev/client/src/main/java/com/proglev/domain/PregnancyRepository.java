@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,7 +100,7 @@ public class PregnancyRepository {
         return removed;
     }
 
-    public Iterable<Pregnancy> getAll() {
+    public Collection<Pregnancy> getAll() {
         return new ArrayList<>(data.values());
     }
 

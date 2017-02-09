@@ -1,0 +1,20 @@
+* {
+    -proglev-main-menu-background-color: #dddddd;
+}
+
+.proglev-main-menu {
+    -fx-background-color: -proglev-main-menu-background-color;
+}
+
+.proglev-main-menu > .button {
+    -fx-background-color: -proglev-main-menu-background-color;
+    -fx-background-insets: 0px;
+    -fx-background-radius: 0px;
+    -fx-border-width: 0px;
+    -fx-text-fill: #555555;
+    -fx-font-size: 24px;
+}
+
+.proglev-main-menu > .button:hover {
+    -fx-text-fill: #777777;
+}
