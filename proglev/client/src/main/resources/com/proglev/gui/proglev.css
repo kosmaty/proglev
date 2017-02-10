@@ -12,7 +12,7 @@
     -fx-background-radius: 0px;
     -fx-border-width: 0px;
     -fx-text-fill: #555555;
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
 }
 
 .proglev-main-menu > .button:hover {
@@ -58,6 +58,7 @@
     -fx-background-insets: 0px, 14px;
     -fx-background-radius: 16px, 2px;
     -fx-padding: 16px;
+    -fx-font-size: 20px;
 }
 
 .default-color3.chart-series-line

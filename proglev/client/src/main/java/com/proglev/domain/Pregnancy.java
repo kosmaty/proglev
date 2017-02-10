@@ -27,4 +27,8 @@ public class Pregnancy {
         this.lastPeriodDate = lastPeriodDate;
         this.progesteroneMeasurements = progesteroneMeasurements;
     }
+
+    public void addProgesteroneMeasurement(ProgesteroneLevelMeasurement measurement){
+        progesteroneMeasurements.add(measurement);
+    }
 }

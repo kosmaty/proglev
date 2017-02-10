@@ -6,12 +6,8 @@ import com.proglev.gui.ProgLevGui;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import java.awt.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @SpringBootApplication
@@ -19,13 +15,17 @@ public class ProglevApplication {
 
     @Bean
     public ObjectMapper objectMapper() {
-        return new Jackson2ObjectMapperBuilder()
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .build();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        return objectMapper;
+//        return new Jackson2ObjectMapperBuilder()
+//                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+//                .build();
     }
 
     @Bean
-    public ExecutorService pregnancyRepositoryExecutor(){
+    public Executor pregnancyRepositoryExecutor(){
         return Executors.newSingleThreadExecutor();
     }
 

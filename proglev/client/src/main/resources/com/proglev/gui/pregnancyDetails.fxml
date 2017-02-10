@@ -11,20 +11,43 @@
 
 <BorderPane stylesheets="@proglev.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnancyDetailsController">
    <top>
-      <HBox alignment="BASELINE_LEFT" prefWidth="200.0" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="nameLabel" text="Imię Nazwisko" />
-            <Button mnemonicParsing="false" text="EDIT" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
+      <BorderPane BorderPane.alignment="CENTER">
+         <left>
+            <HBox alignment="BASELINE_LEFT" prefWidth="200.0" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="nameLabel" text="Imię Nazwisko" />
+                  <Button mnemonicParsing="false" text="EDIT" onAction="#editDetails" fx:id="editDetailsButton" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </left>
+         <right>
+            <HBox alignment="BASELINE_LEFT" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">
+               <Button mnemonicParsing="false" text="ADD_MEASUREMENT" onAction="#addMeasurement" fx:id="addMeasurementButton" />
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+
+         </right>
+      </BorderPane>
+      <!--<HBox alignment="BASELINE_LEFT" prefWidth="200.0" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">-->
+         <!--<children>-->
+            <!--<Label fx:id="nameLabel" text="Imię Nazwisko" />-->
+            <!--<Button mnemonicParsing="false" text="EDIT" onAction="#editDetails" fx:id="editDetailsButton"/>-->
+            <!--<Button mnemonicParsing="false" text="ADD_MEASUREMENT" onAction="#addMeasurement" fx:id="addMeasurementButton" HBox.hgrow="ALWAYS"/>-->
+         <!--</children>-->
+         <!--<padding>-->
+            <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+         <!--</padding>-->
+      <!--</HBox>-->
    </top>
    <center>
-      <BorderPane BorderPane.alignment="CENTER">
+      <BorderPane BorderPane.alignment="CENTER" fx:id="contentPane">
          <center>
-            <LineChart BorderPane.alignment="CENTER" fx:id="progesteroneLevelChart">
+            <LineChart BorderPane.alignment="CENTER" fx:id="progesteroneLevelChart" animated="false" legendVisible="false">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>

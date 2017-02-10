@@ -4,13 +4,17 @@ import java.util.concurrent.Callable;
 
 public class Unchecked {
 
-    public static Runnable unchecked(Callable c){
+    public static Runnable unchecked(CheckedRunnable c){
         return () -> {
             try {
-                c.call();
+                c.run();
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }
         };
+    }
+
+    public static interface CheckedRunnable {
+        void run() throws Exception;
     }
 }

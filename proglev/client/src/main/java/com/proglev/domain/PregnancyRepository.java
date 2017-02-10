@@ -34,7 +34,9 @@ public class PregnancyRepository {
     @PostConstruct
     public void init() throws IOException {
         File logFile = eventsLog.getFile();
-
+        if (!logFile.exists()){
+            logFile.createNewFile();
+        }
         Files.lines(logFile.toPath()).forEach(line -> {
             String[] splitted = line.split("\\|");
             if (splitted.length < 2)

@@ -2,6 +2,7 @@ package com.proglev.gui;
 
 import com.proglev.domain.Pregnancy;
 import com.proglev.domain.PregnancyRepository;
+import com.proglev.domain.ProgesteroneLevelMeasurement;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
 import javafx.application.Platform;
@@ -19,8 +20,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
 
 import static com.proglev.util.Unchecked.unchecked;
 import static java.util.concurrent.CompletableFuture.runAsync;
@@ -37,17 +41,14 @@ public class AddPregnancyController {
     DatePicker lastPeriodDateField;
 
     @Resource
-    ProgLevController progLevController;
-
-    @Resource
-    private PregnancyRepository pregnancyRepository;
-    @Resource
     private FxmlComponentLoader loader;
 
-    @Resource(name = "pregnancyRepositoryExecutor")
-    private ExecutorService executor;
+    private Consumer<Pregnancy> onSave = p -> {
+    };
+    private Runnable onCancel = () -> {
+    };
 
-    private Runnable onDone = () -> {};
+    private Pregnancy pregnancy;
 
     @FXML
     public void initialize() {
@@ -60,6 +61,7 @@ public class AddPregnancyController {
 
             DateTimeFormatter dateFormatter =
                     DateTimeFormatter.ofPattern(pattern);
+
             @Override
             public String toString(LocalDate date) {
                 if (date != null) {
@@ -68,6 +70,7 @@ public class AddPregnancyController {
                     return "";
                 }
             }
+
             @Override
             public LocalDate fromString(String string) {
                 if (string != null && !string.isEmpty()) {
@@ -79,29 +82,53 @@ public class AddPregnancyController {
         };
         lastPeriodDateField.setConverter(converter);
         lastPeriodDateField.setPromptText("rrrr-mm-dd");
+
+        if (pregnancy != null) {
+            initializeFormData();
+        }
+    }
+
+    private void initializeFormData() {
+        firstNameField.setText(pregnancy.getPatientFirstName());
+        lastNameField.setText(pregnancy.getPatientLastName());
+        lastPeriodDateField.setValue(pregnancy.getLastPeriodDate());
     }
 
     public void save() {
         Pregnancy newPregnancy = pregnancyWithFormData();
-        runAsync(unchecked(() -> pregnancyRepository.create(newPregnancy)), executor)
-                .thenRun(() -> Platform.runLater(onDone));
+        onSave.accept(newPregnancy);
     }
 
     private Pregnancy pregnancyWithFormData() {
         return Pregnancy.builder()
+                .id(currentIdOrNull())
                 .patientFirstName(firstNameField.getText())
                 .patientLastName(lastNameField.getText())
                 .lastPeriodDate(lastPeriodDateField.getValue())
-                .progesteroneMeasurements(new HashSet<>())
+                .progesteroneMeasurements(currentMeasurementsOrEmptySet())
                 .build();
     }
 
-    public void cancel() {
-        onDone.run();
+    private Set<ProgesteroneLevelMeasurement> currentMeasurementsOrEmptySet() {
+        return Optional.ofNullable(pregnancy).map(p -> p.getProgesteroneMeasurements()).orElse(new HashSet<>());
     }
 
-    public Node createComponent(Runnable onDone) throws IOException {
-        this.onDone = onDone;
+    private Long currentIdOrNull() {
+        return Optional.ofNullable(pregnancy).map(p -> p.getId()).orElse(null);
+    }
+
+    public void cancel() {
+        onCancel.run();
+    }
+
+    public Node createComponent(Consumer<Pregnancy> onSave, Runnable onCancel) throws IOException {
+        return createComponent(onSave, onCancel, null);
+    }
+
+    public Node createComponent(Consumer<Pregnancy> onSave, Runnable onCancel, Pregnancy pregnancy) throws IOException {
+        this.pregnancy = pregnancy;
+        this.onSave = onSave;
+        this.onCancel = onCancel;
         return loader.load(getClass().getResource("addPregnancy.fxml"));
     }
 }

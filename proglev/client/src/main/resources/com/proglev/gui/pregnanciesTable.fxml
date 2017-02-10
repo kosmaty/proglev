@@ -13,21 +13,22 @@
            fx:controller="com.proglev.gui.PregnanciesTableController"
             onMouseClicked="#onMouseClicked">
     <columns>
-        <TableColumn prefWidth="157.0" text="Imię">
-            <cellValueFactory>
-                <PropertyValueFactory property="patientFirstName"/>
-            </cellValueFactory>
-        </TableColumn>
+
         <TableColumn minWidth="6.0" prefWidth="210.0" text="Nazwisko">
             <cellValueFactory>
                 <PropertyValueFactory property="patientLastName"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn minWidth="0.0" prefWidth="232.0" text="Data ostatniej miesiączki">
+        <TableColumn prefWidth="157.0" text="Imię">
             <cellValueFactory>
-                <PropertyValueFactory property="lastPeriodDate"/>
+                <PropertyValueFactory property="patientFirstName"/>
             </cellValueFactory>
         </TableColumn>
+        <!--<TableColumn minWidth="0.0" prefWidth="232.0" text="Data ostatniej miesiączki">-->
+            <!--<cellValueFactory>-->
+                <!--<PropertyValueFactory property="lastPeriodDate"/>-->
+            <!--</cellValueFactory>-->
+        <!--</TableColumn>-->
     </columns>
     <items>
         <FXCollections fx:factory="observableArrayList">

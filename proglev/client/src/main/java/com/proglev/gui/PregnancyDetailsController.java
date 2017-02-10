@@ -1,35 +1,65 @@
 package com.proglev.gui;
 
 import com.proglev.domain.Pregnancy;
+import com.proglev.domain.PregnancyRepository;
 import com.proglev.domain.ProgesteroneLevelMeasurement;
 import com.proglev.domain.ReferenceDataProvider;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
+
+import static com.proglev.util.Unchecked.unchecked;
+import static java.util.concurrent.CompletableFuture.runAsync;
 
 @FxmlController
 public class PregnancyDetailsController {
     @FXML
+    private Button addMeasurementButton;
+    @FXML
+    private Button editDetailsButton;
+    @FXML
     private LineChart<String, Double> progesteroneLevelChart;
+    @FXML
+    private BorderPane contentPane;
 
     @Resource
     private FxmlComponentLoader loader;
     @Resource
     private ReferenceDataProvider referenceDataProvider;
+    @Resource
+    private AddPregnancyController addPregnancyController;
+    @Resource
+    private EditMeasurementController editMeasurementController;
+    @Resource
+    private PregnancyRepository pregnancyRepository;
+    @Resource(name = "pregnancyRepositoryExecutor")
+    private Executor backgroundExecutor;
+    @Resource(name = "fxExecutor")
+    private Executor fxExecutor;
+
+    private Font font = Font.loadFont(getClass().getResource("/public/assets/font-awsome/fonts/FontAwesome.otf").toExternalForm(), 20);
+
 
     public Label nameLabel;
     private Pregnancy pregnancy;
@@ -41,7 +71,7 @@ public class PregnancyDetailsController {
 
     @FXML
     public void initialize() {
-        nameLabel.setText(pregnancy.getPatientFirstName() + " " + pregnancy.getPatientLastName());
+        initHeader();
 
         XYChart.Series<String, Double> mean = configureSeries("mean", referenceDataProvider.getMean());
         XYChart.Series<String, Double> plus2d = configureSeries("plus 2d", referenceDataProvider.getPlus2d());
@@ -49,6 +79,22 @@ public class PregnancyDetailsController {
         XYChart.Series<String, Double> measurements = configureMeasurementsSeries();
 
         progesteroneLevelChart.getData().addAll(minus2d, mean, plus2d, measurements);
+
+
+        editDetailsButton.setText("\uf040");
+        editDetailsButton.setFont(font);
+        editDetailsButton.setTooltip(new Tooltip("Edytuj dane pacjentki"));
+
+        addMeasurementButton.setText("\uf067");
+        addMeasurementButton.setFont(font);
+        addMeasurementButton.setTooltip(new Tooltip("Dodaj wynik badania"));
+
+    }
+
+    private void initHeader() {
+        nameLabel.setText(pregnancy.getPatientFirstName() + " " + pregnancy.getPatientLastName());
+
+
     }
 
     private XYChart.Series<String, Double> configureMeasurementsSeries() {
@@ -56,7 +102,22 @@ public class PregnancyDetailsController {
         XYChart.Series<String, Double> measurements = new XYChart.Series<>();
         for (ProgesteroneLevelMeasurement measurement : pregnancy.getProgesteroneMeasurements()) {
             int week = calculateWeek(measurement);
-            measurements.getData().add(new XYChart.Data<>(Integer.toString(week), measurement.getProgesteroneLevel()));
+            XYChart.Data<String, Double> data = new XYChart.Data<>(Integer.toString(week), measurement.getProgesteroneLevel());
+            String toolTipText = "Data: " + measurement.getMeasurementDate() + "\nWynik badania: " + measurement.getProgesteroneLevel()
+                    + "\nUwagi: " + measurement.getNotes();
+            Tooltip tooltip = new Tooltip(toolTipText);
+            data.nodeProperty().addListener(new ChangeListener<Node>() {
+                @Override
+                public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
+                    if (newValue != null){
+                        Tooltip.install(newValue, tooltip);
+                        data.nodeProperty().removeListener(this);
+                    }
+                }
+            });
+
+
+            measurements.getData().add(data);
         }
         return measurements;
     }
@@ -73,5 +134,46 @@ public class PregnancyDetailsController {
             minus2d.getData().add(new XYChart.Data<>(label, data.get(i)));
         }
         return minus2d;
+    }
+
+    @FXML
+    public void editDetails(ActionEvent actionEvent) throws IOException {
+        Node editForm = addPregnancyController.createComponent(this::onDetailsSaved, this::hideDetailsPane, pregnancy);
+        contentPane.setTop(editForm);
+    }
+
+    private void onDetailsSaved(Pregnancy pregnancy) {
+        runAsync(unchecked(() -> pregnancyRepository.update(pregnancy)), backgroundExecutor)
+                .thenRunAsync(() -> {
+                    this.pregnancy = pregnancy;
+                    initHeader();
+                    hideDetailsPane();
+                }, fxExecutor);
+
+    }
+
+    private void hideDetailsPane() {
+        contentPane.setTop(null);
+    }
+
+    @FXML
+    public void addMeasurement(ActionEvent actionEvent) throws IOException {
+        Consumer<ProgesteroneLevelMeasurement> onSave = this::onMeasurementAdded;
+        Node editForm =  editMeasurementController.createComponent(onSave, this::hideDetailsPane);
+        contentPane.setTop(editForm);
+    }
+
+    private void onMeasurementAdded(ProgesteroneLevelMeasurement measurement) {
+        this.pregnancy.addProgesteroneMeasurement(measurement);
+        runAsync(unchecked(() -> pregnancyRepository.update(this.pregnancy)), backgroundExecutor)
+                .thenRunAsync((() -> {
+                    hideDetailsPane();
+                    refreshMeasurmentSeries();
+                }), fxExecutor);
+    }
+
+    private void refreshMeasurmentSeries() {
+        XYChart.Series<String, Double> measurements = configureMeasurementsSeries();
+        progesteroneLevelChart.getData().set(3, measurements);
     }
 }

@@ -4,6 +4,7 @@ import com.proglev.domain.Pregnancy;
 import com.proglev.domain.PregnancyRepository;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,6 +13,11 @@ import javafx.scene.layout.BorderPane;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
+
+import static com.proglev.util.Unchecked.unchecked;
+import static java.util.concurrent.CompletableFuture.runAsync;
 
 @FxmlController
 public class ProgLevController {
@@ -28,6 +34,8 @@ public class ProgLevController {
     private AddPregnancyController addPregnancyController;
     @Resource
     private PregnancyDetailsController pregnancyDetailsController;
+    @Resource(name = "pregnancyRepositoryExecutor")
+    private ExecutorService executor;
 
     @FXML
     public void initialize() {
@@ -46,14 +54,19 @@ public class ProgLevController {
     }
 
     public void showAddPregnancy() {
-        Node addPregnancyPane = null;
         try {
-            addPregnancyPane = addPregnancyController.createComponent(this::showTable);
+
+            Node addPregnancyPane = addPregnancyController.createComponent(this::onPregnancyAdded, this::showTable);
             mainPanel.setCenter(addPregnancyPane);
         } catch (IOException e) {
             e.printStackTrace();
             mainPanel.setCenter(new Label("Wystąpił błąd przy wyświetlaniu formularza dodawania"));
         }
+    }
+
+    private void onPregnancyAdded(Pregnancy newPregnancy) {
+        runAsync(unchecked(() -> pregnancyRepository.create(newPregnancy)), executor)
+       .thenRun(() -> Platform.runLater(this::showTable));
     }
 
     public void showPregnancyDetails(Pregnancy pregnancy) {
