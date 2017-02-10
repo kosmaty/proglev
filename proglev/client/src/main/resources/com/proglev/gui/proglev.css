@@ -19,7 +19,8 @@
     -fx-text-fill: #777777;
 }
 
-.proglev-name-header  {
+.proglev-name-header
+{
     -fx-font-size: 20px;
 }
 
@@ -27,5 +28,40 @@
     -fx-background-color: -proglev-main-menu-background-color;
     /*-fx-border-width: 1px;*/
 
+}
+
+.default-color0.chart-line-symbol,
+.default-color1.chart-line-symbol,
+.default-color2.chart-line-symbol
+{
+    -fx-background-color: transparent, transparent;
+}
+
+.default-color0.chart-series-line,
+.default-color2.chart-series-line
+{
+    -fx-stroke: #777777;
+    -fx-stroke-width: 1px;
+    -fx-stroke-dash-array: 5.0 3.0;
+}
+
+.default-color1.chart-series-line
+{
+    -fx-stroke: #333333;
+    -fx-stroke-width: 1px;
+}
+
+/* measurement series */
+.default-color3.chart-line-symbol
+{
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, rgba(65, 131, 196, 0.75), rgba(65, 131, 196, 0.0)) , rgba(65, 131, 196, 1);
+    -fx-background-insets: 0px, 14px;
+    -fx-background-radius: 16px, 2px;
+    -fx-padding: 16px;
+}
+
+.default-color3.chart-series-line
+{
+    -fx-stroke: transparent;
 }
 

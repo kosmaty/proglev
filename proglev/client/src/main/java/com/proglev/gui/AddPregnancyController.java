@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
@@ -91,6 +92,7 @@ public class AddPregnancyController {
                 .patientFirstName(firstNameField.getText())
                 .patientLastName(lastNameField.getText())
                 .lastPeriodDate(lastPeriodDateField.getValue())
+                .progesteroneMeasurements(new HashSet<>())
                 .build();
     }
 

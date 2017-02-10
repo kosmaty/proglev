@@ -4,6 +4,7 @@ package com.proglev.gui;/**
 
 import com.proglev.ProglevApplication;
 import com.proglev.domain.Pregnancy;
+import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.SpringContextControllerFactory;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,25 +33,11 @@ public class ProgLevGui extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        BorderPane root = new BorderPane();
-//        TableView<Pregnancy> t = new TableView<>();
-//
-//        Pregnancy p = Pregnancy.builder()
-//                .id(10L)
-//                .lastPeriodDate(LocalDate.of(2016, 8, 22))
-//                .patientFirstName("a")
-//                .patientLastName("b")
-//                .build();
-//        t.getItems().add(p);
-//
-//        root.setCenter(t);
-
         Platform.setImplicitExit(true);
         ctx = SpringApplication.run(ProglevApplication.class);
         ctx.registerShutdownHook();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("proglevApp.fxml"));
-        loader.setControllerFactory(ctx.getBean(SpringContextControllerFactory.class));
-        Parent root = loader.load();
+        FxmlComponentLoader loader = ctx.getBean(FxmlComponentLoader.class);
+        Parent root = loader.load(getClass().getResource("proglevApp.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
