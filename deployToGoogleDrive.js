@@ -22,11 +22,11 @@ var drive = google.drive({
 oauth2Client.refreshAccessToken(function(err, tokens) {});
 
 
-var readableStream = fs.createReadStream('proglev/client/target/proglev-0.0.1-SNAPSHOT.jar');
+var readableStream = fs.createReadStream('proglev/client/target/proglev.exe');
 drive.files.update({
         fileId: '0B4sC0ym0PoYTT2duenNDTGZFMW8',
         resource: {
-            name: 'proglev.jar',
+            name: 'proglev.exe',
             mimeType: 'application/octet-stream'
         },
         media: {

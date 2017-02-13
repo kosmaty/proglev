@@ -35,6 +35,7 @@ public class PregnancyRepository {
     public void init() throws IOException {
         File logFile = eventsLog.getFile();
         if (!logFile.exists()){
+            logFile.getParentFile().mkdirs();
             logFile.createNewFile();
         }
         Files.lines(logFile.toPath()).forEach(line -> {
