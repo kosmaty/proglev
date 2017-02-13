@@ -9,7 +9,7 @@ addons:
       - nodejs
 
 install:
- - npm install deploy/
+ - npm install
 
 jdk:
   - oraclejdk8
@@ -20,4 +20,4 @@ branches:
 
 script:
  - mvn -f proglev/client/pom.xml clean install
- - node deploy/deployToGoogleDrive.js
+ - node deployToGoogleDrive.js
