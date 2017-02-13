@@ -6,6 +6,10 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+      - nodejs
+
+install:
+ - npm install deploy/
 
 jdk:
   - oraclejdk8
@@ -14,4 +18,6 @@ branches:
   only:
   - backend
 
-script: mvn -f proglev/client/pom.xml clean install
+script:
+ - mvn -f proglev/client/pom.xml clean install
+ - node deploy\deployToGoogleDrive.js
