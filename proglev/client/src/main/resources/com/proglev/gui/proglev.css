@@ -66,3 +66,41 @@
     -fx-stroke: transparent;
 }
 
+.pregnancy-list-item-name {
+    -fx-font-size: 20px;
+    -fx-text-fill: #4183c4;
+}
+
+.pregnancy-list-item-name:hover {
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.pregnancy-list-item-email {
+    -fx-font-size: 14px;
+}
+
+.pregnancy-list-item {
+    -fx-padding: 0 0 10 50;
+}
+
+.pregnancy-list-item:hover {
+    -fx-background-color: #eeeeee;
+}
+
+.search-field {
+    -fx-font-size: 14px;
+}
+
+.search-field-container {
+    -fx-padding: 10 10 10 50;
+}
+
+.search-icon {
+    -fx-padding: 0 10 0 0;
+    -fx-text-fill: #bbbbbb;
+}
+
+.edit-form {
+    -fx-font-size: 14px;
+}

@@ -31,14 +31,17 @@ import static java.util.concurrent.CompletableFuture.runAsync;
 
 @FxmlController
 public class AddPregnancyController {
+
     @FXML
-    Button saveButton;
+    private TextField firstNameField;
     @FXML
-    TextField firstNameField;
+    private TextField lastNameField;
     @FXML
-    TextField lastNameField;
+    private TextField emailField;
     @FXML
-    DatePicker lastPeriodDateField;
+    private DatePicker lastPeriodDateField;
+    @FXML
+    private Button saveButton;
 
     @Resource
     private FxmlComponentLoader loader;
@@ -54,7 +57,8 @@ public class AddPregnancyController {
     public void initialize() {
         saveButton.disableProperty().bind(firstNameField.textProperty().isEmpty()
                 .or(lastNameField.textProperty().isEmpty())
-                .or(lastPeriodDateField.valueProperty().isNull()));
+                .or(lastPeriodDateField.valueProperty().isNull())
+                .or(emailField.textProperty().isEmpty()));
 
         String pattern = "yyyy-MM-dd";
         StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
@@ -92,6 +96,7 @@ public class AddPregnancyController {
         firstNameField.setText(pregnancy.getPatientFirstName());
         lastNameField.setText(pregnancy.getPatientLastName());
         lastPeriodDateField.setValue(pregnancy.getLastPeriodDate());
+        emailField.setText(pregnancy.getEmail());
     }
 
     public void save() {
@@ -105,6 +110,7 @@ public class AddPregnancyController {
                 .patientFirstName(firstNameField.getText())
                 .patientLastName(lastNameField.getText())
                 .lastPeriodDate(lastPeriodDateField.getValue())
+                .email(emailField.getText())
                 .progesteroneMeasurements(currentMeasurementsOrEmptySet())
                 .build();
     }

@@ -19,9 +19,6 @@ public class ProglevApplication {
         objectMapper.findAndRegisterModules();
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return objectMapper;
-//        return new Jackson2ObjectMapperBuilder()
-//                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-//                .build();
     }
 
     @Bean
@@ -30,7 +27,6 @@ public class ProglevApplication {
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(ProglevApplication.class, args);
 		ProgLevGui.main(args);
     }
 }

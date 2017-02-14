@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@proglev.css" styleClass="pregnancy-list-item">
+      <Label text="Firstname Lastname" fx:id="nameLabel" styleClass="pregnancy-list-item-name"/>
+      <Label text="email@example.com" fx:id="emailLabel" styleClass="pregnancy-list-item-email"/>
+</fx:root>

@@ -33,16 +33,6 @@
 
          </right>
       </BorderPane>
-      <!--<HBox alignment="BASELINE_LEFT" prefWidth="200.0" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">-->
-         <!--<children>-->
-            <!--<Label fx:id="nameLabel" text="Imię Nazwisko" />-->
-            <!--<Button mnemonicParsing="false" text="EDIT" onAction="#editDetails" fx:id="editDetailsButton"/>-->
-            <!--<Button mnemonicParsing="false" text="ADD_MEASUREMENT" onAction="#addMeasurement" fx:id="addMeasurementButton" HBox.hgrow="ALWAYS"/>-->
-         <!--</children>-->
-         <!--<padding>-->
-            <!--<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-         <!--</padding>-->
-      <!--</HBox>-->
    </top>
    <center>
       <BorderPane BorderPane.alignment="CENTER" fx:id="contentPane">
