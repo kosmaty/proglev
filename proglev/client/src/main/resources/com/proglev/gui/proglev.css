@@ -1,7 +1,9 @@
 * {
     -proglev-main-menu-background-color: #dddddd;
 }
-
+/***************************/
+/* main application window */
+/***************************/
 .proglev-main-menu {
     -fx-background-color: -proglev-main-menu-background-color;
 }
@@ -19,6 +21,9 @@
     -fx-text-fill: #777777;
 }
 
+/****************************/
+/* pregnancy details screen */
+/****************************/
 .proglev-name-header
 {
     -fx-font-size: 20px;
@@ -26,10 +31,12 @@
 
 .proglev-name-header > .button {
     -fx-background-color: -proglev-main-menu-background-color;
-    /*-fx-border-width: 1px;*/
 
 }
 
+/***************************/
+/* progesteron level chart */
+/***************************/
 .default-color0.chart-line-symbol,
 .default-color1.chart-line-symbol,
 .default-color2.chart-line-symbol
@@ -66,6 +73,26 @@
     -fx-stroke: transparent;
 }
 
+/***************************/
+/***** pregnancy list ******/
+/***************************/
+.search-field-container {
+    -fx-padding: 10 10 10 50;
+}
+
+.search-field {
+    -fx-font-size: 14px;
+}
+
+.search-icon {
+    -fx-padding: 0 10 0 0;
+    -fx-text-fill: #bbbbbb;
+}
+
+.pregnancy-list-item {
+    -fx-padding: 0 0 10 50;
+}
+
 .pregnancy-list-item-name {
     -fx-font-size: 20px;
     -fx-text-fill: #4183c4;
@@ -80,27 +107,15 @@
     -fx-font-size: 14px;
 }
 
-.pregnancy-list-item {
-    -fx-padding: 0 0 10 50;
-}
-
 .pregnancy-list-item:hover {
     -fx-background-color: #eeeeee;
 }
 
-.search-field {
-    -fx-font-size: 14px;
-}
 
-.search-field-container {
-    -fx-padding: 10 10 10 50;
-}
-
-.search-icon {
-    -fx-padding: 0 10 0 0;
-    -fx-text-fill: #bbbbbb;
-}
-
+/***************************/
+/******* edit form *********/
+/***************************/
 .edit-form {
     -fx-font-size: 14px;
+    -fx-background-color: rgba(255, 255, 255, 0.85);
 }

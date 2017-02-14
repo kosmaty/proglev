@@ -5,38 +5,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<!--<TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" fx:id="pregancyTable"-->
-<!--xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"-->
-<!--fx:controller="com.proglev.gui.PregnanciesTableController"-->
-<!--onMouseClicked="#onMouseClicked">-->
-<!--<columns>-->
-<!--<TableColumn minWidth="6.0" prefWidth="210.0" text="Nazwisko">-->
-<!--<cellValueFactory>-->
-<!--<PropertyValueFactory property="patientLastName"/>-->
-<!--</cellValueFactory>-->
-<!--</TableColumn>-->
-<!--<TableColumn prefWidth="157.0" text="Imię">-->
-<!--<cellValueFactory>-->
-<!--<PropertyValueFactory property="patientFirstName"/>-->
-<!--</cellValueFactory>-->
-<!--</TableColumn>-->
-<!--&lt;!&ndash;<TableColumn minWidth="0.0" prefWidth="232.0" text="Data ostatniej miesiączki">&ndash;&gt;-->
-<!--&lt;!&ndash;<cellValueFactory>&ndash;&gt;-->
-<!--&lt;!&ndash;<PropertyValueFactory property="lastPeriodDate"/>&ndash;&gt;-->
-<!--&lt;!&ndash;</cellValueFactory>&ndash;&gt;-->
-<!--&lt;!&ndash;</TableColumn>&ndash;&gt;-->
-<!--</columns>-->
-<!--<items>-->
-<!--<FXCollections fx:factory="observableArrayList">-->
-<!--<Pregnancy patientFirstName="Isabella" patientLastName="Johnson"/>-->
-<!--<Pregnancy patientFirstName="Emma" patientLastName="Jones"/>-->
-<!--</FXCollections>-->
-<!--</items>-->
-<!--<columnResizePolicy>-->
-<!--<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>-->
-<!--</columnResizePolicy>-->
-<!--</TableView>-->
-
 <StackPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnanciesTableController">
    <VBox>
       <StackPane styleClass="search-field-container">

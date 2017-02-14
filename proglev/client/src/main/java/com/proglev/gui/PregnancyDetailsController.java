@@ -6,6 +6,7 @@ import com.proglev.domain.ProgesteroneLevelMeasurement;
 import com.proglev.domain.ReferenceDataProvider;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
+import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -34,6 +37,8 @@ import static java.util.concurrent.CompletableFuture.runAsync;
 
 @FxmlController
 public class PregnancyDetailsController {
+    @FXML
+    private Pane formContainer;
     @FXML
     private Button addMeasurementButton;
     @FXML
@@ -89,6 +94,11 @@ public class PregnancyDetailsController {
         addMeasurementButton.setFont(font);
         addMeasurementButton.setTooltip(new Tooltip("Dodaj wynik badania"));
 
+        formContainer.getChildren().addListener((InvalidationListener) o -> {
+            boolean disableButtons = formContainer.getChildren().size() > 1;
+            editDetailsButton.setDisable(disableButtons);
+            addMeasurementButton.setDisable(disableButtons);
+        });
     }
 
     private void initHeader() {
@@ -109,7 +119,7 @@ public class PregnancyDetailsController {
             data.nodeProperty().addListener(new ChangeListener<Node>() {
                 @Override
                 public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
-                    if (newValue != null){
+                    if (newValue != null) {
                         Tooltip.install(newValue, tooltip);
                         data.nodeProperty().removeListener(this);
                     }
@@ -139,7 +149,7 @@ public class PregnancyDetailsController {
     @FXML
     public void editDetails(ActionEvent actionEvent) throws IOException {
         Node editForm = addPregnancyController.createComponent(this::onDetailsSaved, this::hideDetailsPane, pregnancy);
-        contentPane.setTop(editForm);
+        formContainer.getChildren().add(1, editForm);
     }
 
     private void onDetailsSaved(Pregnancy pregnancy) {
@@ -153,14 +163,16 @@ public class PregnancyDetailsController {
     }
 
     private void hideDetailsPane() {
-        contentPane.setTop(null);
+        if (formContainer.getChildren().size() > 1){
+            formContainer.getChildren().remove(1, formContainer.getChildren().size());
+        }
     }
 
     @FXML
     public void addMeasurement(ActionEvent actionEvent) throws IOException {
         Consumer<ProgesteroneLevelMeasurement> onSave = this::onMeasurementAdded;
-        Node editForm =  editMeasurementController.createComponent(onSave, this::hideDetailsPane);
-        contentPane.setTop(editForm);
+        Node editForm = editMeasurementController.createComponent(onSave, this::hideDetailsPane);
+        formContainer.getChildren().add(1, editForm);
     }
 
     private void onMeasurementAdded(ProgesteroneLevelMeasurement measurement) {
