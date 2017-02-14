@@ -133,17 +133,26 @@ public class PregnancyDetailsController {
     }
 
     private int calculateWeek(ProgesteroneLevelMeasurement measurement) {
-        return (int) ChronoUnit.WEEKS.between(pregnancy.getLastPeriodDate(), measurement.getMeasurementDate());
+        int week = (int) ChronoUnit.WEEKS.between(pregnancy.getLastPeriodDate(), measurement.getMeasurementDate());
+        return roundToEven(week);
+    }
+
+    private int roundToEven(int week) {
+        if (week % 2 == 0){
+            return week;
+        } else {
+            return week - 1;
+        }
     }
 
     private XYChart.Series<String, Double> configureSeries(String seriesName, List<Double> data) {
-        XYChart.Series<String, Double> minus2d = new XYChart.Series<>();
-        minus2d.setName(seriesName);
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        series.setName(seriesName);
         for (int i = 0; i < data.size(); i++) {
-            String label = Integer.toString(i + ReferenceDataProvider.FIRST_VISIBLE_WEEK);
-            minus2d.getData().add(new XYChart.Data<>(label, data.get(i)));
+            String label = Integer.toString(i * 2 + ReferenceDataProvider.FIRST_VISIBLE_WEEK);
+            series.getData().add(new XYChart.Data<>(label, data.get(i)));
         }
-        return minus2d;
+        return series;
     }
 
     @FXML
