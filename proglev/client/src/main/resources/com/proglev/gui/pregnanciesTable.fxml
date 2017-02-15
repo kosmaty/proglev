@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
-<StackPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnanciesTableController">
-   <VBox>
-      <StackPane styleClass="search-field-container">
-          <TextField fx:id="searchField" styleClass="search-field" promptText="%searchFieldPromptText" />
-          <Label text="%searchIcon" styleClass="search-icon, font-awesome" StackPane.alignment="CENTER_RIGHT"/>
-      </StackPane>
-
-       <VBox fx:id="pregnancyList" prefHeight="200.0" prefWidth="100.0" />
-   </VBox>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.112"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnanciesTableController">
+    <VBox>
+        <StackPane styleClass="search-field-container">
+            <TextField fx:id="searchField" styleClass="search-field" promptText="%searchFieldPromptText"/>
+            <Label text="%searchIcon" styleClass="search-icon, font-awesome" StackPane.alignment="CENTER_RIGHT"/>
+        </StackPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false">
+            <VBox fx:id="pregnancyList"/>
+        </ScrollPane>
+    </VBox>
 </StackPane>
