@@ -1,6 +1,11 @@
 * {
     -proglev-main-menu-background-color: #dddddd;
 }
+
+.font-awesome {
+    -fx-font-family: "FontAwesome";
+}
+
 /***************************/
 /* main application window */
 /***************************/

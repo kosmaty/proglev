@@ -2,11 +2,9 @@ package com.proglev.domain;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
 @Component
@@ -19,25 +17,21 @@ public class ReferenceDataProvider {
     private List<Double> minus2d;
 
     public ReferenceDataProvider() {
-        mean = Arrays.asList(
+        mean = unmodifiableList(asList(
                 21.6, 25.9, 26.2, 30.0, 33.4, 39.5, 47.8, 51.8, 55.6, 65.0,
                 72.2, 81.6, 90.4, 104.5, 118.2, 134.8, 152.3, 159.4, 166.2
-        );
+        ));
 
-        List<Double> plus2d = new ArrayList<>();
-        List<Double> minus2d = new ArrayList<>();
+        plus2d = unmodifiableList(asList(
+                36.76, 43.03, 43.24, 45.19, 56.22, 55.57, 64.86, 72.00, 75.03,
+                88.22, 96.86, 105.08, 115.46, 129.08, 153.95, 168.86
 
-        Random random = new Random();
+        ));
+        minus2d = unmodifiableList(asList(
+                6.27, 9.30, 8.43, 14.05, 16.43, 23.14, 30.27, 32.43, 36.32,
+                42.16, 45.84, 54.92, 64.86, 72.86, 77.19, 97.73, 111.14, 127.35, 139.03
 
-        mean.forEach(value -> {
-            double stdDev = 5 + random.nextDouble() * 5;
-            plus2d.add(value + 2 * stdDev);
-            minus2d.add(value - 2 * stdDev);
-        });
-
-        this.plus2d = unmodifiableList(plus2d);
-        this.mean = unmodifiableList(mean);
-        this.minus2d = unmodifiableList(minus2d);
+        ));
     }
 
     public List<Double> getPlus2d() {

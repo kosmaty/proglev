@@ -1,24 +1,16 @@
 package com.proglev.gui;
 
 
-import com.proglev.domain.Pregnancy;
 import com.proglev.domain.PregnancyRepository;
 import com.proglev.util.FxmlController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 
-import static com.proglev.gui.Fonts.FONT_AWSOME_14;
 import static java.util.stream.Collectors.toList;
 
 @FxmlController
@@ -30,9 +22,6 @@ public class PregnanciesTableController {
     private TextField searchField;
     @FXML
     private VBox pregnancyList;
-    @FXML
-    private TableView<Pregnancy> pregancyTable;
-
     @Resource
     private PregnancyRepository pregnancyRepository;
 
@@ -43,7 +32,6 @@ public class PregnanciesTableController {
     public void initialize() {
         refreshList();
         searchField.textProperty().addListener((v, o, n) -> refreshList());
-        searchIcon.setFont(FONT_AWSOME_14);
         searchIcon.setText("\uf002");
     }
 
@@ -62,12 +50,5 @@ public class PregnanciesTableController {
                 })
                 .collect(toList());
         pregnancyList.getChildren().addAll(listItems);
-    }
-
-    public void onMouseClicked(MouseEvent mouseEvent) {
-//        if (mouseEvent.getClickCount() > 1){
-//            Pregnancy pregnancy = pregancyTable.getSelectionModel().selectedItemProperty().get();
-//            progLevController.showPregnancyDetails(pregnancy);
-//        }
     }
 }

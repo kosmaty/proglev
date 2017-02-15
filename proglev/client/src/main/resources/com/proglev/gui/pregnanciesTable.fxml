@@ -9,7 +9,7 @@
    <VBox>
       <StackPane styleClass="search-field-container">
           <TextField fx:id="searchField" styleClass="search-field" />
-          <Label text="Search" fx:id="searchIcon" styleClass="search-icon" StackPane.alignment="CENTER_RIGHT"/>
+          <Label text="Search" fx:id="searchIcon" styleClass="search-icon, font-awesome" StackPane.alignment="CENTER_RIGHT"/>
       </StackPane>
 
       <VBox fx:id="pregnancyList" prefHeight="200.0" prefWidth="100.0" styleClass="pregnancy-list">

@@ -46,7 +46,7 @@ public class PregnancyDetailsController {
     @FXML
     private LineChart<String, Double> progesteroneLevelChart;
     @FXML
-    private BorderPane contentPane;
+    private Label nameLabel;
 
     @Resource
     private FxmlComponentLoader loader;
@@ -62,11 +62,6 @@ public class PregnancyDetailsController {
     private Executor backgroundExecutor;
     @Resource(name = "fxExecutor")
     private Executor fxExecutor;
-
-    private Font font = Font.loadFont(getClass().getResource("/public/assets/font-awsome/fonts/FontAwesome.otf").toExternalForm(), 20);
-
-
-    public Label nameLabel;
     private Pregnancy pregnancy;
 
     public Node createComponent(Pregnancy pregnancy) throws IOException {
@@ -78,20 +73,18 @@ public class PregnancyDetailsController {
     public void initialize() {
         initHeader();
 
-        XYChart.Series<String, Double> mean = configureSeries("mean", referenceDataProvider.getMean());
-        XYChart.Series<String, Double> plus2d = configureSeries("plus 2d", referenceDataProvider.getPlus2d());
-        XYChart.Series<String, Double> minus2d = configureSeries("minus 2d", referenceDataProvider.getMinus2d());
+        XYChart.Series<String, Double> mean = configureSeries("Mean", referenceDataProvider.getMean());
+        XYChart.Series<String, Double> plus2d = configureSeries("+2 SD", referenceDataProvider.getPlus2d());
+        XYChart.Series<String, Double> minus2d = configureSeries("-2 SD", referenceDataProvider.getMinus2d());
         XYChart.Series<String, Double> measurements = configureMeasurementsSeries();
 
         progesteroneLevelChart.getData().addAll(minus2d, mean, plus2d, measurements);
 
 
         editDetailsButton.setText("\uf040");
-        editDetailsButton.setFont(font);
         editDetailsButton.setTooltip(new Tooltip("Edytuj dane pacjentki"));
 
         addMeasurementButton.setText("\uf067");
-        addMeasurementButton.setFont(font);
         addMeasurementButton.setTooltip(new Tooltip("Dodaj wynik badania"));
 
         formContainer.getChildren().addListener((InvalidationListener) o -> {
@@ -103,8 +96,6 @@ public class PregnancyDetailsController {
 
     private void initHeader() {
         nameLabel.setText(pregnancy.getPatientFirstName() + " " + pregnancy.getPatientLastName());
-
-
     }
 
     private XYChart.Series<String, Double> configureMeasurementsSeries() {
@@ -113,7 +104,8 @@ public class PregnancyDetailsController {
         for (ProgesteroneLevelMeasurement measurement : pregnancy.getProgesteroneMeasurements()) {
             int week = calculateWeek(measurement);
             XYChart.Data<String, Double> data = new XYChart.Data<>(Integer.toString(week), measurement.getProgesteroneLevel());
-            String toolTipText = "Data: " + measurement.getMeasurementDate() + "\nWynik badania: " + measurement.getProgesteroneLevel()
+            String toolTipText = "Data: " + measurement.getMeasurementDate()
+                    + "\nWynik badania: " + measurement.getProgesteroneLevel()
                     + "\nUwagi: " + measurement.getNotes();
             Tooltip tooltip = new Tooltip(toolTipText);
             data.nodeProperty().addListener(new ChangeListener<Node>() {
@@ -138,7 +130,7 @@ public class PregnancyDetailsController {
     }
 
     private int roundToEven(int week) {
-        if (week % 2 == 0){
+        if (week % 2 == 0) {
             return week;
         } else {
             return week - 1;
@@ -172,7 +164,7 @@ public class PregnancyDetailsController {
     }
 
     private void hideDetailsPane() {
-        if (formContainer.getChildren().size() > 1){
+        if (formContainer.getChildren().size() > 1) {
             formContainer.getChildren().remove(1, formContainer.getChildren().size());
         }
     }
