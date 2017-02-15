@@ -1,13 +1,9 @@
 package com.proglev.gui;
 
 import com.proglev.domain.Pregnancy;
-import com.proglev.domain.PregnancyRepository;
 import com.proglev.domain.ProgesteroneLevelMeasurement;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -22,12 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
-
-import static com.proglev.util.Unchecked.unchecked;
-import static java.util.concurrent.CompletableFuture.runAsync;
 
 @FxmlController
 public class AddPregnancyController {
@@ -85,7 +76,6 @@ public class AddPregnancyController {
             }
         };
         lastPeriodDateField.setConverter(converter);
-        lastPeriodDateField.setPromptText("rrrr-mm-dd");
 
         if (pregnancy != null) {
             initializeFormData();

@@ -1,27 +1,22 @@
 package com.proglev.gui;
 
 
-import com.proglev.domain.Pregnancy;
 import com.proglev.domain.ProgesteroneLevelMeasurement;
 import com.proglev.util.FxmlComponentLoader;
 import com.proglev.util.FxmlController;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
 import javafx.util.converter.DoubleStringConverter;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
 @FxmlController
 public class EditMeasurementController {
     @FXML
     private DatePicker measurementDateField;
-    @FXML
-    private Spinner<Double> progesteroneLevelField2;
     @FXML
     private TextField progesteroneLevelField;
     @FXML
@@ -37,11 +32,9 @@ public class EditMeasurementController {
 
     @FXML
     public void initialize() {
-        progesteroneLevelField.setTextFormatter(new TextFormatter<Double>(new DoubleStringConverter()));
+        progesteroneLevelField.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
         saveButton.disableProperty().bind(progesteroneLevelField.getTextFormatter().valueProperty().isNull()
                 .or(measurementDateField.valueProperty().isNull()));
-//        progesteroneLevelField.setValueFactory(
-//                new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1000.0, 100.0, 1.0));
     }
 
     @FXML

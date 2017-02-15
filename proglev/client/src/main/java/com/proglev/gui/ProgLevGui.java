@@ -27,7 +27,7 @@ public class ProgLevGui extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Font.loadFont(Fonts.class.getResource("/public/assets/font-awsome/fonts/fontawesome-webfont.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/public/assets/font-awsome/fonts/fontawesome-webfont.ttf").toExternalForm(), 10);
         Platform.setImplicitExit(true);
         ctx = SpringApplication.run(ProglevApplication.class);
         ctx.registerShutdownHook();

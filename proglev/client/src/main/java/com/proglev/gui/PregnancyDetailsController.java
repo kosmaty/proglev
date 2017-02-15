@@ -17,19 +17,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
 
 import static com.proglev.util.Unchecked.unchecked;
@@ -58,10 +54,14 @@ public class PregnancyDetailsController {
     private EditMeasurementController editMeasurementController;
     @Resource
     private PregnancyRepository pregnancyRepository;
+
+    @Resource(name = "i18n")
+    private ResourceBundle i18n;
     @Resource(name = "pregnancyRepositoryExecutor")
     private Executor backgroundExecutor;
     @Resource(name = "fxExecutor")
     private Executor fxExecutor;
+
     private Pregnancy pregnancy;
 
     public Node createComponent(Pregnancy pregnancy) throws IOException {
@@ -73,29 +73,31 @@ public class PregnancyDetailsController {
     public void initialize() {
         initHeader();
 
-        XYChart.Series<String, Double> mean = configureSeries("Mean", referenceDataProvider.getMean());
-        XYChart.Series<String, Double> plus2d = configureSeries("+2 SD", referenceDataProvider.getPlus2d());
-        XYChart.Series<String, Double> minus2d = configureSeries("-2 SD", referenceDataProvider.getMinus2d());
+        XYChart.Series<String, Double> mean = configureSeries(i18n("mean"), referenceDataProvider.getMean());
+        XYChart.Series<String, Double> plus2d = configureSeries(i18n("plus2sd"), referenceDataProvider.getPlus2d());
+        XYChart.Series<String, Double> minus2d = configureSeries(i18n("minus2sd"), referenceDataProvider.getMinus2d());
         XYChart.Series<String, Double> measurements = configureMeasurementsSeries();
 
         progesteroneLevelChart.getData().addAll(minus2d, mean, plus2d, measurements);
 
 
-        editDetailsButton.setText("\uf040");
-        editDetailsButton.setTooltip(new Tooltip("Edytuj dane pacjentki"));
+    }
 
-        addMeasurementButton.setText("\uf067");
-        addMeasurementButton.setTooltip(new Tooltip("Dodaj wynik badania"));
+    private String i18n(String key) {
+        return i18n.getString(key);
+    }
 
+    private void initHeader() {
+        nameLabel.setText(pregnancy.getPatientFirstName() + " " + pregnancy.getPatientLastName());
+        diableButtonsWhenEditFormIsVisible();
+    }
+
+    private void diableButtonsWhenEditFormIsVisible() {
         formContainer.getChildren().addListener((InvalidationListener) o -> {
             boolean disableButtons = formContainer.getChildren().size() > 1;
             editDetailsButton.setDisable(disableButtons);
             addMeasurementButton.setDisable(disableButtons);
         });
-    }
-
-    private void initHeader() {
-        nameLabel.setText(pregnancy.getPatientFirstName() + " " + pregnancy.getPatientLastName());
     }
 
     private XYChart.Series<String, Double> configureMeasurementsSeries() {
@@ -104,10 +106,7 @@ public class PregnancyDetailsController {
         for (ProgesteroneLevelMeasurement measurement : pregnancy.getProgesteroneMeasurements()) {
             int week = calculateWeek(measurement);
             XYChart.Data<String, Double> data = new XYChart.Data<>(Integer.toString(week), measurement.getProgesteroneLevel());
-            String toolTipText = "Data: " + measurement.getMeasurementDate()
-                    + "\nWynik badania: " + measurement.getProgesteroneLevel()
-                    + "\nUwagi: " + measurement.getNotes();
-            Tooltip tooltip = new Tooltip(toolTipText);
+            Tooltip tooltip = tooltipFor(measurement);
             data.nodeProperty().addListener(new ChangeListener<Node>() {
                 @Override
                 public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
@@ -122,6 +121,15 @@ public class PregnancyDetailsController {
             measurements.getData().add(data);
         }
         return measurements;
+    }
+
+    private Tooltip tooltipFor(ProgesteroneLevelMeasurement measurement) {
+        String toolTipText = MessageFormat.format(
+                i18n("measurementPointTooltip"),
+                measurement.getMeasurementDate(),
+                measurement.getProgesteroneLevel(),
+                measurement.getNotes());
+        return new Tooltip(toolTipText);
     }
 
     private int calculateWeek(ProgesteroneLevelMeasurement measurement) {

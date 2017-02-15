@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -24,6 +25,11 @@ public class ProglevApplication {
     @Bean
     public Executor pregnancyRepositoryExecutor(){
         return Executors.newSingleThreadExecutor();
+    }
+
+    @Bean
+    public ResourceBundle i18n(){
+        return ResourceBundle.getBundle("com.proglev.gui.i18n");
     }
 
     public static void main(String[] args) throws Exception {

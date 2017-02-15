@@ -26,18 +26,18 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Imię" />
-                <Label text="Nazwisko" GridPane.rowIndex="1" />
-                <Label text="E-mail" GridPane.rowIndex="2" />
-                <Label text="Data ostatniej miesiączki" GridPane.rowIndex="3" />
+                <Label text="%firstName" />
+                <Label text="%lastName" GridPane.rowIndex="1" />
+                <Label text="%email" GridPane.rowIndex="2" />
+                <Label text="%lastPeriodDate" GridPane.rowIndex="3" />
                 <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
                 <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <DatePicker fx:id="lastPeriodDateField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <DatePicker fx:id="lastPeriodDateField" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="%dateFieldPromptText"/>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <buttons>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="Zapisz" ButtonBar.buttonData="APPLY" />
-                        <Button mnemonicParsing="false" onAction="#cancel" text="Anuluj" ButtonBar.buttonData="CANCEL_CLOSE" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" text="%save" ButtonBar.buttonData="APPLY" />
+                        <Button mnemonicParsing="false" onAction="#cancel" text="%cancel" ButtonBar.buttonData="CANCEL_CLOSE" />
                     </buttons>
                 </ButtonBar>
 

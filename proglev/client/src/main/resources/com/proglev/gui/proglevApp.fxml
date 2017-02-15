@@ -11,8 +11,8 @@
     <top>
         <HBox styleClass="proglev-main-menu" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" text="Lista pacjentek" onAction="#showTable"/>
-                <Button mnemonicParsing="false" text="Nowa pacjentka" onAction="#showAddPregnancy"/>
+                <Button mnemonicParsing="false" text="%pregnancyList" onAction="#showTable"/>
+                <Button mnemonicParsing="false" text="%addPregnancy" onAction="#showAddPregnancy"/>
             </children>
         </HBox>
     </top>

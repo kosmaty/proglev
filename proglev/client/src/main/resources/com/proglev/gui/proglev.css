@@ -1,5 +1,6 @@
 * {
-    -proglev-main-menu-background-color: #dddddd;
+    -proglev-main-menu-background-color: #eeeeee;
+    -proglev-main-menu-background-color-hover: derive(#eeeeee, -10%);
 }
 
 .font-awesome {
@@ -23,7 +24,7 @@
 }
 
 .proglev-main-menu > .button:hover {
-    -fx-text-fill: #777777;
+    -fx-background-color: -proglev-main-menu-background-color-hover;
 }
 
 /****************************/
@@ -36,6 +37,11 @@
 
 .proglev-name-header > .button {
     -fx-background-color: -proglev-main-menu-background-color;
+
+}
+
+.proglev-name-header > .button:hover {
+    -fx-background-color: -proglev-main-menu-background-color-hover;
 
 }
 
@@ -113,7 +119,69 @@
 }
 
 .pregnancy-list-item:hover {
-    -fx-background-color: #eeeeee;
+    -fx-background-color: -proglev-main-menu-background-color;
+}
+
+.list-item-drop-down > .label{
+    -fx-padding: 0;
+}
+
+.list-item-drop-down > .arrow-button,
+.list-item-drop-down > .arrow-button:armed
+{
+    -fx-background-color: white;
+    -fx-background-insets: 0px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-width: 0px;
+}
+
+.pregnancy-list-item:hover  .list-item-drop-down,
+.pregnancy-list-item:hover  .list-item-drop-down > .arrow-button {
+    -fx-color: -proglev-main-menu-background-color;
+    -fx-background-color: -proglev-main-menu-background-color;
+}
+
+.list-item-drop-down {
+    -fx-background-color: white;
+    -fx-background-insets:0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+
+
+.list-item-drop-down > .arrow-button {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 10;
+}
+.list-item-drop-down:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.list-item-drop-down:focused > .arrow-button {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.list-item-drop-down:hover,
+.pregnancy-list-item:hover  .list-item-drop-down:hover > .arrow-button {
+    -fx-background-color: -proglev-main-menu-background-color-hover;
+}
+
+.list-item-drop-down > .arrow-button > .arrow {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.pregnancy-list-item:hover  .list-item-drop-down > .arrow-button > .arrow {
+    -fx-background-insets: 0 0 -1 0, 0;
+    -fx-padding: 0.166667em 0.333333em 0.166667em 0.333333em; /* 2 4 2 4 */
 }
 
 
@@ -124,3 +192,4 @@
     -fx-font-size: 14px;
     -fx-background-color: rgba(255, 255, 255, 0.85);
 }
+

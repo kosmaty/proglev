@@ -7,15 +7,20 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 @Component
 public class FxmlComponentLoader {
     @Resource
     private SpringContextControllerFactory controllerFactory;
 
+    @Resource(name = "i18n")
+    private ResourceBundle i18n;
+
     public FXMLLoader createLoader(URL fxmlLocation){
         FXMLLoader loader = new FXMLLoader(fxmlLocation);
         loader.setControllerFactory(controllerFactory);
+        loader.setResources(i18n);
         return loader;
     }
 

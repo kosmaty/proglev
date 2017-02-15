@@ -11,20 +11,19 @@ import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.proglev.util.Unchecked.unchecked;
 import static java.util.stream.Collectors.toList;
 
 @FxmlController
 public class PregnanciesTableController {
 
     @FXML
-    private Label searchIcon;
-    @FXML
     private TextField searchField;
     @FXML
     private VBox pregnancyList;
+
     @Resource
     private PregnancyRepository pregnancyRepository;
-
     @Resource
     private ProgLevController progLevController;
 
@@ -32,7 +31,6 @@ public class PregnanciesTableController {
     public void initialize() {
         refreshList();
         searchField.textProperty().addListener((v, o, n) -> refreshList());
-        searchIcon.setText("\uf002");
     }
 
     private void refreshList() {
@@ -46,6 +44,10 @@ public class PregnanciesTableController {
                 .map(p -> {
                     PregnancyListItem item = new PregnancyListItem(p);
                     item.onPregnancySelected(progLevController::showPregnancyDetails);
+                    item.registerOnDeleteAction(pr -> {
+                        unchecked(() -> pregnancyRepository.delete(pr.getId())).run(); // TODO anynchExec
+                        refreshList();
+                    });
                     return item;
                 })
                 .collect(toList());

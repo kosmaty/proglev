@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-      stylesheets="@proglev.css" styleClass="pregnancy-list-item">
-      <Label text="Firstname Lastname" fx:id="nameLabel" styleClass="pregnancy-list-item-name"/>
-      <Label text="email@example.com" fx:id="emailLabel" styleClass="pregnancy-list-item-email"/>
+<fx:root styleClass="pregnancy-list-item" stylesheets="@proglev.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="nameLabel" styleClass="pregnancy-list-item-name" text="Firstname Lastname" />
+        <SplitMenuButton mnemonicParsing="false" styleClass="list-item-drop-down">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Usuń" onAction="#onDelete">
+                    <!--<graphic>-->
+                        <!--<Label text="X" />-->
+                    <!--</graphic>-->
+                </MenuItem>
+            </items>
+        </SplitMenuButton>
+    </HBox>
+    <Label fx:id="emailLabel" styleClass="pregnancy-list-item-email" text="email@example.com" />
 </fx:root>

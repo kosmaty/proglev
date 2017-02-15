@@ -6,30 +6,37 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.*?>
-<BorderPane stylesheets="@proglev.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.proglev.gui.PregnancyDetailsController">
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane stylesheets="@proglev.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnancyDetailsController">
     <top>
         <BorderPane BorderPane.alignment="CENTER">
             <left>
-                <HBox alignment="BASELINE_LEFT" spacing="10.0" styleClass="proglev-name-header"
-                      BorderPane.alignment="CENTER">
+                <HBox alignment="BASELINE_LEFT" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">
                     <children>
-                        <Label fx:id="nameLabel" text="Imię Nazwisko"/>
-                        <Button mnemonicParsing="false" text="EDIT" onAction="#editDetails" fx:id="editDetailsButton" styleClass="font-awesome"/>
+                        <Label fx:id="nameLabel" text="[Imię Nazwisko]" />
+                        <Button fx:id="editDetailsButton" mnemonicParsing="false" onAction="#editDetails" styleClass="font-awesome" text="%editIcon">
+                            <tooltip>
+                                <Tooltip text="%editPregnancyTooltip" />
+                            </tooltip>
+                        </Button>
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="14.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="14.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
             </left>
             <right>
-                <HBox alignment="BASELINE_LEFT" spacing="10.0" styleClass="proglev-name-header"
-                      BorderPane.alignment="CENTER">
-                    <Button mnemonicParsing="false" text="ADD_MEASUREMENT" onAction="#addMeasurement"
-                            fx:id="addMeasurementButton" styleClass="font-awesome"/>
+                <HBox alignment="BASELINE_LEFT" spacing="10.0" styleClass="proglev-name-header" BorderPane.alignment="CENTER">
+                    <Button fx:id="addMeasurementButton" mnemonicParsing="false" onAction="#addMeasurement" styleClass="font-awesome" text="%addIcon">
+                  <tooltip>
+                     <Tooltip text="%addMeasurementTooltip" />
+                  </tooltip></Button>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </HBox>
 
@@ -37,16 +44,15 @@
         </BorderPane>
     </top>
     <center>
-        <BorderPane BorderPane.alignment="CENTER" fx:id="contentPane">
+        <BorderPane fx:id="contentPane" BorderPane.alignment="CENTER">
             <center>
                 <StackPane fx:id="formContainer">
-                    <LineChart BorderPane.alignment="CENTER" fx:id="progesteroneLevelChart" animated="false"
-                               legendVisible="false">
+                    <LineChart fx:id="progesteroneLevelChart" animated="false" legendVisible="false" BorderPane.alignment="CENTER">
                         <xAxis>
-                            <CategoryAxis side="BOTTOM"/>
+                            <CategoryAxis side="BOTTOM" />
                         </xAxis>
                         <yAxis>
-                            <NumberAxis side="LEFT"/>
+                            <NumberAxis side="LEFT" />
                         </yAxis>
                     </LineChart>
                 </StackPane>

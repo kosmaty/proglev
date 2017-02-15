@@ -8,12 +8,10 @@
 <StackPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnanciesTableController">
    <VBox>
       <StackPane styleClass="search-field-container">
-          <TextField fx:id="searchField" styleClass="search-field" />
-          <Label text="Search" fx:id="searchIcon" styleClass="search-icon, font-awesome" StackPane.alignment="CENTER_RIGHT"/>
+          <TextField fx:id="searchField" styleClass="search-field" promptText="%searchFieldPromptText" />
+          <Label text="%searchIcon" styleClass="search-icon, font-awesome" StackPane.alignment="CENTER_RIGHT"/>
       </StackPane>
 
-      <VBox fx:id="pregnancyList" prefHeight="200.0" prefWidth="100.0" styleClass="pregnancy-list">
-
-      </VBox>
+       <VBox fx:id="pregnancyList" prefHeight="200.0" prefWidth="100.0" />
    </VBox>
 </StackPane>
