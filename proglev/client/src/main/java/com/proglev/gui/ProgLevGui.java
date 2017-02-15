@@ -16,6 +16,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.io.IOException;
 import java.util.Locale;
 
+import static com.proglev.gui.ProgLevController.PROG_LEV_APPLICATION_FXML;
+
 public class ProgLevGui extends Application {
 
     private ConfigurableApplicationContext ctx;
@@ -32,7 +34,7 @@ public class ProgLevGui extends Application {
         ctx = SpringApplication.run(ProglevApplication.class);
         ctx.registerShutdownHook();
         FxmlComponentLoader loader = ctx.getBean(FxmlComponentLoader.class);
-        Parent root = loader.load(getClass().getResource("proglevApp.fxml"));
+        Parent root = loader.load(PROG_LEV_APPLICATION_FXML);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

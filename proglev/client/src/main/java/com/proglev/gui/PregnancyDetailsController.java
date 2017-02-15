@@ -21,6 +21,7 @@ import javafx.scene.layout.Pane;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -33,6 +34,7 @@ import static java.util.concurrent.CompletableFuture.runAsync;
 
 @FxmlController
 public class PregnancyDetailsController {
+    public static final URL PREGNANCY_DETAILS_FXML = PregnancyDetailsController.class.getResource("pregnancyDetails.fxml");
     @FXML
     private Pane formContainer;
     @FXML
@@ -66,7 +68,7 @@ public class PregnancyDetailsController {
 
     public Node createComponent(Pregnancy pregnancy) throws IOException {
         this.pregnancy = pregnancy;
-        return loader.load(getClass().getResource("pregnancyDetails.fxml"));
+        return loader.load(PREGNANCY_DETAILS_FXML);
     }
 
     @FXML

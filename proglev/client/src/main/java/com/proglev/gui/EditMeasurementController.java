@@ -11,10 +11,12 @@ import javafx.util.converter.DoubleStringConverter;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.net.URL;
 import java.util.function.Consumer;
 
 @FxmlController
 public class EditMeasurementController {
+    public static final URL EDIT_MEASUREMENT_CONTROLLER = EditMeasurementController.class.getResource("editMeasurement.fxml");
     @FXML
     private DatePicker measurementDateField;
     @FXML
@@ -59,6 +61,6 @@ public class EditMeasurementController {
     public Node createComponent(Consumer<ProgesteroneLevelMeasurement> onSave, Runnable onCancel) throws IOException {
         this.onSave = onSave;
         this.onCancel = onCancel;
-        return loader.load(getClass().getResource("editMeasurement.fxml"));
+        return loader.load(EDIT_MEASUREMENT_CONTROLLER);
     }
 }

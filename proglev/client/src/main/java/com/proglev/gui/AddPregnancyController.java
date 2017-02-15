@@ -13,6 +13,7 @@ import javafx.util.StringConverter;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ import java.util.function.Consumer;
 @FxmlController
 public class AddPregnancyController {
 
+    public static final URL ADD_PREGNANCY_FXML = AddPregnancyController.class.getResource("addPregnancy.fxml");
     @FXML
     private TextField firstNameField;
     @FXML
@@ -76,6 +78,7 @@ public class AddPregnancyController {
             }
         };
         lastPeriodDateField.setConverter(converter);
+        lastPeriodDateField.setPromptText("rrrr-mm-dd");
 
         if (pregnancy != null) {
             initializeFormData();
@@ -125,6 +128,6 @@ public class AddPregnancyController {
         this.pregnancy = pregnancy;
         this.onSave = onSave;
         this.onCancel = onCancel;
-        return loader.load(getClass().getResource("addPregnancy.fxml"));
+        return loader.load(ADD_PREGNANCY_FXML);
     }
 }

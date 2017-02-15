@@ -6,18 +6,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root styleClass="pregnancy-list-item" stylesheets="@proglev.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+<VBox styleClass="pregnancy-list-item" stylesheets="@proglev.css"
+         xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.proglev.gui.PregnancyListItemController">
     <HBox alignment="CENTER_LEFT">
-        <Label fx:id="nameLabel" styleClass="pregnancy-list-item-name" text="Firstname Lastname" />
+        <Label fx:id="nameLabel" styleClass="pregnancy-list-item-name" text="[Firstname Lastname]" />
         <SplitMenuButton mnemonicParsing="false" styleClass="list-item-drop-down">
             <items>
-                <MenuItem mnemonicParsing="false" text="Usuń" onAction="#onDelete">
-                    <!--<graphic>-->
-                        <!--<Label text="X" />-->
-                    <!--</graphic>-->
+                <MenuItem mnemonicParsing="false" text="%delete" onAction="#onDelete">
+                    <graphic>
+                        <Label text="%deleteIcon" styleClass="delete-icon, font-awesome"/>
+                    </graphic>
                 </MenuItem>
             </items>
         </SplitMenuButton>
     </HBox>
-    <Label fx:id="emailLabel" styleClass="pregnancy-list-item-email" text="email@example.com" />
-</fx:root>
+    <Label fx:id="emailLabel" styleClass="pregnancy-list-item-email" text="[email@example.com]" />
+</VBox>
