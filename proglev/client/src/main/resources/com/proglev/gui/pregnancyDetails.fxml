@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.layout.VBox?>
 <BorderPane stylesheets="@proglev.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proglev.gui.PregnancyDetailsController">
     <top>
         <BorderPane BorderPane.alignment="CENTER">
@@ -55,6 +56,10 @@
                             <NumberAxis side="LEFT" />
                         </yAxis>
                     </LineChart>
+                    <VBox fx:id="popup" visible="false" styleClass="measurement-popup" maxWidth="300" alignment="CENTER">
+                        <Label fx:id="popupLabel" wrapText="true"/>
+                        <Button fx:id="popupButton" text="%delete" />
+                    </VBox>
                 </StackPane>
 
             </center>

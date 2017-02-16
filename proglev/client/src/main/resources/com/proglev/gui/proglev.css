@@ -85,6 +85,11 @@
     -fx-font-size: 20px;
 }
 
+.default-color3.chart-line-symbol:hover
+{
+    -fx-cursor: hand;
+}
+
 .default-color3.chart-series-line
 {
     -fx-stroke: transparent;
@@ -192,6 +197,20 @@
 
 .delete-icon {
     -fx-text-fill: red;
+}
+
+.measurement-popup {
+    -fx-background: rgb(30,30,30);
+    -fx-text-fill: white;
+    -fx-background-color: rgba(30,30,30,0.8);
+    -fx-background-radius: 6px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px */
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+    -fx-font-size: 16px;
+}
+.measurement-popup > .label {
+    -fx-text-fill: white;
 }
 
 /***************************/

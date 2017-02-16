@@ -33,4 +33,8 @@ public class Pregnancy {
     public void addProgesteroneMeasurement(ProgesteroneLevelMeasurement measurement){
         progesteroneMeasurements.add(measurement);
     }
+
+    public void removeMeasurement(ProgesteroneLevelMeasurement measurement) {
+        progesteroneMeasurements.remove(measurement);
+    }
 }
