@@ -3,13 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.proglev</groupId>
 	<artifactId>uploader</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>uploader</name>
 	<description>Uploades to Google Drive</description>
+
+    <parent>
+        <groupId>com.proglev</groupId>
+        <artifactId>parent</artifactId>
+        <version>${proglev.version}</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
 
 
 	<properties>
@@ -24,7 +29,7 @@
         <dependency>
             <groupId>com.proglev</groupId>
             <artifactId>proglev-exe</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${proglev.version}</version>
         </dependency>
         <dependency>
 			<groupId>com.google.api-client</groupId>

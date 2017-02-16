@@ -1,6 +1,4 @@
-package com.proglev.gui;/**
- * Created by kyko on 2/7/2017.
- */
+package com.proglev.gui;
 
 import com.proglev.ProglevApplication;
 import com.proglev.util.FxmlComponentLoader;
@@ -29,7 +27,7 @@ public class ProgLevGui extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Font.loadFont(getClass().getResource("/public/assets/font-awsome/fonts/fontawesome-webfont.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/com/proglev/gui/fonts/fontawesome-webfont.ttf").toExternalForm(), 10);
         Platform.setImplicitExit(true);
         ctx = SpringApplication.run(ProglevApplication.class);
         ctx.registerShutdownHook();

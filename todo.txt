@@ -1,3 +1,0 @@
- - Odstępy między polamni
- - Obcięty nagłówek (imię i nazwisko)
- - błąd przy starcie - trzeba stworzyć katalog
