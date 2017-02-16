@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
@@ -35,6 +36,7 @@ public class ProgLevGui extends Application {
         Parent root = loader.load(PROG_LEV_APPLICATION_FXML);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+		primaryStage.getIcons().add(new Image(getClass().getResource("/com/proglev/gui/proglev.png").toExternalForm()));
         primaryStage.show();
     }
 

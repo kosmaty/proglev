@@ -33,6 +33,13 @@
                             <outfile>target/proglev.exe</outfile>
                             <jar>../client/target/proglev-${proglev.version}.jar</jar>
                             <errTitle>proglev</errTitle>
+							<icon>src/main/resources/proglev.ico</icon>
+							<splash>
+								<file>src/main/resources/proglev.bmp</file>
+								<waitForWindow>true</waitForWindow>
+								<timeout>60</timeout>
+								<timeoutErr>true</timeoutErr>
+							  </splash>
                             <classPath>
                                 <mainClass>org.springframework.boot.loader.JarLauncher</mainClass>
                                 <addDependencies>false</addDependencies>
