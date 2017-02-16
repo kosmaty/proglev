@@ -41,7 +41,7 @@ public class Uploader {
 
 
         java.io.File fileToUpload = new java.io.File(filePath);
-//        System.out.println(fileToUpload.getCanonicalPath());
+        System.out.println(fileToUpload.getCanonicalPath());
         File fileMetadata = new File();
         fileMetadata.setName(fileToUpload.getName());
         fileMetadata.setMimeType("application/octet-stream");
