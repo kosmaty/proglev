@@ -19,7 +19,7 @@ var drive = google.drive({
     auth: oauth2Client
 });
 
-oauth2Client.refreshAccessToken(function(err, tokens) {});
+// oauth2Client.refreshAccessToken(function(err, tokens) {});
 
 
 var readableStream = fs.createReadStream('proglev/client/target/proglev.exe');
