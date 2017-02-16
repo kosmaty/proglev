@@ -11,7 +11,7 @@
                 <Button mnemonicParsing="false" text="%pregnancyList" onAction="#showTable"/>
                 <Button mnemonicParsing="false" text="%addPregnancy" onAction="#showAddPregnancy"/>
             </HBox>
-            <BorderPane fx:id="mainPanel"/>
+            <BorderPane fx:id="mainPanel" VBox.vgrow="ALWAYS"/>
         </VBox>
     </center>
 </BorderPane>
