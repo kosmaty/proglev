@@ -18,4 +18,4 @@ branches:
 
 script:
  - mvn clean install
- - mvn -f proglev\uploader\pom.xml exec:java -DfileToUpload=./proglev/exe/target/proglev.exe
+ - mvn -f proglev/uploader/pom.xml exec:java -DfileToUpload=./proglev/exe/target/proglev.exe
