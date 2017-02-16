@@ -27,11 +27,6 @@
 	<dependencies>
 
         <dependency>
-            <groupId>com.proglev</groupId>
-            <artifactId>proglev-exe</artifactId>
-            <version>${proglev.version}</version>
-        </dependency>
-        <dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
 			<version>1.22.0</version>
