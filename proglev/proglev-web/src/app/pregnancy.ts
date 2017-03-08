@@ -4,4 +4,11 @@ export class Pregnancy {
   patientLastName: string;
   email: string;
   lastPeriodDate: Date;
+  measurements: ProgesteroneLevelMeasurement[] = [];
+}
+
+export class ProgesteroneLevelMeasurement {
+  progesteroneLevel: number;
+  measurementDate: Date;
+  notes?: string;
 }
