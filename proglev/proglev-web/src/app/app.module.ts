@@ -2,19 +2,30 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule }   from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { PregnanciesListComponent } from './pregnancies-list.component';
+import { PregnancyDetailsComponent } from './pregnancy-details.component';
+
+import {PregnancyRepository} from "./pregnancy.repository";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PregnanciesListComponent,
+    PregnancyDetailsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot([
+      {path: '', component: PregnanciesListComponent},
+      {path: 'pregnancy/:id', component: PregnancyDetailsComponent}
+    ])
   ],
-  providers: [],
+  providers: [PregnancyRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
