@@ -10,13 +10,28 @@ import 'rxjs/add/operator/switchMap';
   selector: 'add-pregnancy',
   templateUrl: './add-pregnancy.component.html'
 })
-export class AddPregnancyComponent {
+export class AddPregnancyComponent implements OnInit {
   pregnancy: Pregnancy = new Pregnancy();
+  title: string = "";
 
   constructor(private pregnancyRepository: PregnancyRepository,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) {
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.pregnancyRepository.getById(+params['id'])
+          .then(pregnancy => {
+            this.pregnancy = pregnancy;
+            this.title = pregnancy.patientFirstName + " " + pregnancy.patientLastName
+          })
+      } else {
+        this.title = "Nowa pacjentka";
+      }
+    });
   }
 
   onSubmit() {

@@ -27,6 +27,7 @@ import {PregnancyRepository} from "./pregnancy.repository";
     RouterModule.forRoot([
       {path: '', component: PregnanciesListComponent},
       {path: 'pregnancy/:id', component: PregnancyDetailsComponent},
+      {path: 'pregnancy/:id/edit', component: AddPregnancyComponent},
       {path: 'add-pregnancy', component: AddPregnancyComponent},
       {path: 'pregnancy/:pregnancyId/measurement/add', component: AddMeasurementComponent}
     ])
