@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {Location}                 from '@angular/common';
+import {Location} from '@angular/common';
 import {Pregnancy, ProgesteroneLevelMeasurement} from "./pregnancy";
 import {PregnancyRepository} from "./pregnancy.repository";
 import 'rxjs/add/operator/switchMap';
@@ -27,7 +27,7 @@ export class PregnancyDetailsComponent implements OnInit {
         this.pregnancy = pregnancy;
         drawChart(this.pregnancy);
       });
-   }
+  }
 
 
 }
@@ -108,15 +108,15 @@ function calculateWeekForMeasurement(pregnancy: Pregnancy, measurement: Progeste
 }
 
 function prepareBubbleData(pregnancy: Pregnancy) {
-  const result:any = {};
+  const result: any = {};
   result.dataForBubble = prepareEmptyDataset();
   result.bubbleBackgroundColor = GOOD_BACKGROUND_COLOR;
   result.bubbleBorderColor = GOOD_BORDER_COLOR;
-  for (let measurement of pregnancy.measurements){
+  for (let measurement of pregnancy.measurements) {
     const progesteroneLevel = measurement.progesteroneLevel;
     const week = calculateWeekForMeasurement(pregnancy, measurement);
     const currentPoint = {x: week, y: progesteroneLevel, r: BUBBLE_RADIUS};
-    const dataIndex = Math.floor((week - FIRST_VISIBLE_WEEK)/2);
+    const dataIndex = Math.floor((week - FIRST_VISIBLE_WEEK) / 2);
 
     result.dataForBubble[dataIndex] = currentPoint;
   }

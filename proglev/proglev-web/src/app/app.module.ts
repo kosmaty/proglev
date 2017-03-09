@@ -1,12 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule }   from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {RouterModule}   from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { PregnanciesListComponent } from './pregnancies-list.component';
-import { PregnancyDetailsComponent } from './pregnancy-details.component';
+import {AppComponent} from './app.component';
+import {PregnanciesListComponent} from './pregnancies-list.component';
+import {PregnancyDetailsComponent} from './pregnancy-details.component';
+import {AddPregnancyComponent} from './add-pregnancy.component';
 
 import {PregnancyRepository} from "./pregnancy.repository";
 
@@ -14,7 +15,8 @@ import {PregnancyRepository} from "./pregnancy.repository";
   declarations: [
     AppComponent,
     PregnanciesListComponent,
-    PregnancyDetailsComponent
+    PregnancyDetailsComponent,
+    AddPregnancyComponent
   ],
   imports: [
     BrowserModule,
@@ -22,10 +24,12 @@ import {PregnancyRepository} from "./pregnancy.repository";
     HttpModule,
     RouterModule.forRoot([
       {path: '', component: PregnanciesListComponent},
-      {path: 'pregnancy/:id', component: PregnancyDetailsComponent}
+      {path: 'pregnancy/:id', component: PregnancyDetailsComponent},
+      {path: 'add-pregnancy', component: AddPregnancyComponent}
     ])
   ],
   providers: [PregnancyRepository],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
