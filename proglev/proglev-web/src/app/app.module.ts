@@ -8,6 +8,7 @@ import {AppComponent} from './app.component';
 import {PregnanciesListComponent} from './pregnancies-list.component';
 import {PregnancyDetailsComponent} from './pregnancy-details.component';
 import {AddPregnancyComponent} from './add-pregnancy.component';
+import {AddMeasurementComponent} from './add-measurement.component';
 
 import {PregnancyRepository} from "./pregnancy.repository";
 
@@ -16,7 +17,8 @@ import {PregnancyRepository} from "./pregnancy.repository";
     AppComponent,
     PregnanciesListComponent,
     PregnancyDetailsComponent,
-    AddPregnancyComponent
+    AddPregnancyComponent,
+    AddMeasurementComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import {PregnancyRepository} from "./pregnancy.repository";
     RouterModule.forRoot([
       {path: '', component: PregnanciesListComponent},
       {path: 'pregnancy/:id', component: PregnancyDetailsComponent},
-      {path: 'add-pregnancy', component: AddPregnancyComponent}
+      {path: 'add-pregnancy', component: AddPregnancyComponent},
+      {path: 'pregnancy/:pregnancyId/measurement/add', component: AddMeasurementComponent}
     ])
   ],
   providers: [PregnancyRepository],

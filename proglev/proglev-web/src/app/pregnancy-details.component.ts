@@ -4,7 +4,6 @@ import {Location} from '@angular/common';
 import {Pregnancy, ProgesteroneLevelMeasurement} from "./pregnancy";
 import {PregnancyRepository} from "./pregnancy.repository";
 import 'rxjs/add/operator/switchMap';
-// import {Chart, LinearChartData, ChartDataSets, ChartOptions, ChartLegendOptions, ChartScales} from "chart.js";
 declare var Chart: any;
 
 
@@ -50,20 +49,6 @@ const BUBBLE_RADIUS = 3;
 const labels = createLabels();
 const chartData = loadData();
 
-// const inputData = {
-//   lastPeriodDate: null,
-//   progesteroneLevel: null,
-//   measurements: [],
-//   isValid: function () {
-//     return !!(this.lastPeriodDate && this.progesteroneLevel);
-//   }
-// };
-// function resetInputData(){
-//   inputData.lastPeriodDate = null;
-//   inputData.progesteroneLevel = null;
-//   inputData.measurements = [];
-// }
-
 function createLabels() {
   const labels = [];
   for (let i = FIRST_VISIBLE_WEEK; i <= LAST_VISIBLE_WEEK; i += 2) {
@@ -79,13 +64,7 @@ function loadData() {
     88.22, 96.86, 105.08, 115.46, 129.08, 153.95, 168.86];
   const minData = [6.27, 9.30, 8.43, 14.05, 16.43, 23.14, 30.27, 32.43, 36.32,
     42.16, 45.84, 54.92, 64.86, 72.86, 77.19, 97.73, 111.14, 127.35, 139.03];
-  // for (let i = FIRST_VISIBLE_WEEK; i <= LAST_VISIBLE_WEEK; i++) {
-  //   const stdDev = 5 + Math.random() * 5;
-  //   const mean = 20 + i * i / 10 + Math.random() * 5;
-  //   avgData.push(mean);
-  //   maxData.push(mean + 2 * stdDev);
-  //   minData.push(mean - 2 * stdDev);
-  // }
+
   return {
     avgData: avgData,
     maxData: maxData,
@@ -100,11 +79,15 @@ function prepareEmptyDataset() {
 }
 
 function calculateWeekForMeasurement(pregnancy: Pregnancy, measurement: ProgesteroneLevelMeasurement) {
-  const measurementDate: Date =
-    (typeof measurement.measurementDate) == "string"
-      ? new Date(measurement.measurementDate)
-      : measurement.measurementDate;
-  return Math.round((measurementDate.getTime() - pregnancy.lastPeriodDate.getTime()) / (MILLIS_IN_WEEK));
+  const measurementDate: Date = toDate(measurement.measurementDate);
+  const lastPertiodDate: Date = toDate(pregnancy.lastPeriodDate);
+  return Math.round((measurementDate.getTime() - lastPertiodDate.getTime()) / (MILLIS_IN_WEEK));
+}
+
+function toDate(value: any): Date{
+  return (typeof value) == "string"
+    ? new Date(value)
+    : value;
 }
 
 function prepareBubbleData(pregnancy: Pregnancy) {

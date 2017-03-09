@@ -8,7 +8,7 @@
           <button class="btn btn-default btn-xs fa fa-pencil" data-ng-click="toggleDetails()"></button>
         </div>
         <div class="col-sm-4 text-right">
-          <button class="btn btn-primary" data-ng-click="toggleMeasurement()">Dodaj wynik badania</button>
+          <a class="btn btn-primary" [routerLink]="['measurement', 'add']">Dodaj wynik badania</a>
         </div>
       </div>
 

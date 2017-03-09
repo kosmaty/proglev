@@ -74,11 +74,14 @@ export class PregnancyRepository implements OnInit {
 
   }
 
-  updatePregnancy(pregnancy: Pregnancy): Promise<Pregnancy> {
+  savePregnancy(pregnancy: Pregnancy): Promise<Pregnancy> {
     return this.openObjectStore("readwrite")
       .then(objectStore => new Promise(function (resolve, reject) {
-        let objectStoreRequest = objectStore.put(pregnancy, pregnancy.id);
-        objectStoreRequest.onsuccess = function (event: any) {
+        let objectStoreRequest = objectStore.put(pregnancy);
+        objectStoreRequest.onsuccess = function (event) {
+          if (!pregnancy.id){
+            pregnancy.id = objectStoreRequest.result;
+          }
           resolve(pregnancy);
         };
         objectStoreRequest.onerror = reject;

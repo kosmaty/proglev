@@ -10,5 +10,5 @@ export class Pregnancy {
 export class ProgesteroneLevelMeasurement {
   progesteroneLevel: number;
   measurementDate: Date;
-  notes?: string;
+  notes: string;
 }
