@@ -21,6 +21,7 @@ export class AddPregnancyComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.pregnancyRepository.getById(+params['id'])
@@ -41,6 +42,10 @@ export class AddPregnancyComponent implements OnInit {
       })
       .catch(error => console.log(error));
 
+  }
+
+  cancel(){
+    this.location.back();
   }
 
 

@@ -41,5 +41,9 @@ export class AddMeasurementComponent implements OnInit {
 
   }
 
+  cancel(){
+    this.location.back();
+  }
+
 
 }
