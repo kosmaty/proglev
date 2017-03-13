@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div>
   <search-box (update)="toFind = $event"></search-box>
   <div *ngFor="let pregnancy of pregnancies | search : toFind" style="padding-bottom: 10px">
     <h4><a [routerLink]="['/pregnancy', pregnancy.id]">
