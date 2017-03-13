@@ -14,6 +14,7 @@ export class AddMeasurementComponent implements OnInit {
   pregnancy: Pregnancy = new Pregnancy();
   measurement: ProgesteroneLevelMeasurement = new ProgesteroneLevelMeasurement();
   measurementIndex: number;
+  isEdit: boolean = false;
 
   constructor(private pregnancyRepository: PregnancyRepository,
     private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class AddMeasurementComponent implements OnInit {
           if (measurementIndex >= 0) {
             this.measurement = pregnancy.measurements[measurementIndex];
             this.measurementIndex = measurementIndex;
+            this.isEdit = true;
           }
         })
     });
@@ -44,16 +46,25 @@ export class AddMeasurementComponent implements OnInit {
     } else {
       this.pregnancy.measurements.push(this.measurement);
     }
+    this.savePregnancy();
+
+  }
+
+  savePregnancy(){
     this.pregnancyRepository.savePregnancy(this.pregnancy)
       .then(pregnancy => {
         return this.router.navigate(["pregnancy", +pregnancy.id]);
       })
       .catch(error => console.log(error));
-
   }
 
   cancel() {
     this.location.back();
+  }
+
+  delete(){
+    this.pregnancy.measurements.splice(this.measurementIndex, 1);
+    this.savePregnancy();
   }
 
 
