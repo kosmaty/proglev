@@ -1,5 +1,6 @@
 <div class="table-responsive">
-  <div *ngFor="let pregnancy of pregnancies" style="padding-bottom: 10px">
+  <search-box (update)="toFind = $event"></search-box>
+  <div *ngFor="let pregnancy of pregnancies | search : toFind" style="padding-bottom: 10px">
     <h4><a [routerLink]="['/pregnancy', pregnancy.id]">
       {{pregnancy.patientFirstName}} {{pregnancy.patientLastName}}
     </a></h4>

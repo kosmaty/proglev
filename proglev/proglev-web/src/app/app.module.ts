@@ -9,8 +9,12 @@ import {PregnanciesListComponent} from './pregnancies-list.component';
 import {PregnancyDetailsComponent} from './pregnancy-details.component';
 import {AddPregnancyComponent} from './add-pregnancy.component';
 import {AddMeasurementComponent} from './add-measurement.component';
+import {SearchBox} from "./search-box.component"
+import {SearchPregnancyPipe} from "./search-pregnancy.pipe"
 
-import {PregnancyRepository} from "./pregnancy.repository";
+
+import { PregnancyRepository } from "./pregnancy.repository";
+import { DeletePregnancyComponent } from "./delete-pregnancy.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import {PregnancyRepository} from "./pregnancy.repository";
     PregnanciesListComponent,
     PregnancyDetailsComponent,
     AddPregnancyComponent,
-    AddMeasurementComponent
+    AddMeasurementComponent,
+    SearchBox,
+    SearchPregnancyPipe,
+    DeletePregnancyComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,8 @@ import {PregnancyRepository} from "./pregnancy.repository";
       {path: 'pregnancy/:id/edit', component: AddPregnancyComponent},
       {path: 'add-pregnancy', component: AddPregnancyComponent},
       {path: 'pregnancy/:pregnancyId/measurement/add', component: AddMeasurementComponent},
-      {path: 'pregnancy/:pregnancyId/measurement/:measurementId', component: AddMeasurementComponent}
+      {path: 'pregnancy/:pregnancyId/measurement/:measurementId', component: AddMeasurementComponent},
+      {path: 'pregnancy/:id/delete', component: DeletePregnancyComponent}
     ],{ useHash: true })
   ],
   providers: [PregnancyRepository],

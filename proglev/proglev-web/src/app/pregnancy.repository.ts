@@ -1,5 +1,5 @@
-import {Injectable, OnInit} from '@angular/core';
-import {Pregnancy} from "./pregnancy";
+import { Injectable, OnInit } from '@angular/core';
+import { Pregnancy } from "./pregnancy";
 
 
 @Injectable()
@@ -16,7 +16,7 @@ export class PregnancyRepository implements OnInit {
     let request = indexedDB.open(dbName, 1);
     request.onupgradeneeded = function (event) {
       let db: IDBDatabase = request.result;
-      db.createObjectStore("pregnancies", {keyPath: "id", autoIncrement: true});
+      db.createObjectStore("pregnancies", { keyPath: "id", autoIncrement: true });
     };
     this.futureDb = new Promise(function (resolve, reject) {
       request.onsuccess = function (event) {
@@ -46,7 +46,7 @@ export class PregnancyRepository implements OnInit {
         };
         openCursorRequest.onerror = reject;
       })
-    );
+      );
   }
 
   getById(id: number): Promise<Pregnancy> {
@@ -79,7 +79,7 @@ export class PregnancyRepository implements OnInit {
       .then(objectStore => new Promise<Pregnancy>(function (resolve, reject) {
         let objectStoreRequest = objectStore.put(pregnancy);
         objectStoreRequest.onsuccess = function (event) {
-          if (!pregnancy.id){
+          if (!pregnancy.id) {
             pregnancy.id = objectStoreRequest.result;
           }
           resolve(pregnancy);
@@ -90,10 +90,14 @@ export class PregnancyRepository implements OnInit {
   }
 
   deletePregnancy(pregnancy: Pregnancy): Promise<boolean> {
-        return this.openObjectStore("readwrite")
+    return this.deletePregnancyById(pregnancy.id);
+  }
+  
+  deletePregnancyById(pregnancyId: number): Promise<boolean> {
+    return this.openObjectStore("readwrite")
       .then(objectStore => new Promise<boolean>(function (resolve, reject) {
-        let objectStoreRequest = objectStore.delete(pregnancy.id);
-        objectStoreRequest.onsuccess = function (event) {          
+        let objectStoreRequest = objectStore.delete(pregnancyId);
+        objectStoreRequest.onsuccess = function (event) {
           resolve(true);
         };
         objectStoreRequest.onerror = reject;
@@ -101,7 +105,7 @@ export class PregnancyRepository implements OnInit {
   }
 
   private openObjectStore(mode?: string): Promise<IDBObjectStore> {
-    if (!mode){
+    if (!mode) {
       mode = "readonly";
     }
     return this.futureDb.then(db => Promise.resolve(db.transaction(["pregnancies"], mode).objectStore("pregnancies")));
