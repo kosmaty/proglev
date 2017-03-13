@@ -32,7 +32,7 @@ export class PregnancyRepository implements OnInit {
 
   getAll(): Promise<Pregnancy[]> {
     return this.openObjectStore()
-      .then(objectStore => new Promise(function (resolve, reject) {
+      .then(objectStore => new Promise<Pregnancy[]>(function (resolve, reject) {
         let pregnancies: Pregnancy[] = [];
         let openCursorRequest = objectStore.openCursor();
         openCursorRequest.onsuccess = function (event) {
@@ -51,7 +51,7 @@ export class PregnancyRepository implements OnInit {
 
   getById(id: number): Promise<Pregnancy> {
     return this.openObjectStore()
-      .then(objectStore => new Promise(function (resolve, reject) {
+      .then(objectStore => new Promise<Pregnancy>(function (resolve, reject) {
         let request = objectStore.get(id);
         request.onsuccess = function (event) {
           let pregnancy = request.result;
@@ -61,22 +61,22 @@ export class PregnancyRepository implements OnInit {
       }));
   }
 
-  addPregnancy(pregnancy: Pregnancy): Promise<Pregnancy> {
-    return this.openObjectStore("readwrite")
-      .then(objectStore => new Promise(function (resolve, reject) {
-        let objectStoreRequest = objectStore.add(pregnancy);
-        objectStoreRequest.onsuccess = function (event: any) {
-          pregnancy.id = objectStoreRequest.result;
-          resolve(pregnancy);
-        };
-        objectStoreRequest.onerror = reject;
-      }));
+  // addPregnancy(pregnancy: Pregnancy): Promise<Pregnancy> {
+  //   return this.openObjectStore("readwrite")
+  //     .then(objectStore => new Promise<Pregnancy>(function (resolve, reject) {
+  //       let objectStoreRequest = objectStore.add(pregnancy);
+  //       objectStoreRequest.onsuccess = function (event: any) {
+  //         pregnancy.id = objectStoreRequest.result;
+  //         resolve(pregnancy);
+  //       };
+  //       objectStoreRequest.onerror = reject;
+  //     }));
 
-  }
+  // }
 
   savePregnancy(pregnancy: Pregnancy): Promise<Pregnancy> {
     return this.openObjectStore("readwrite")
-      .then(objectStore => new Promise(function (resolve, reject) {
+      .then(objectStore => new Promise<Pregnancy>(function (resolve, reject) {
         let objectStoreRequest = objectStore.put(pregnancy);
         objectStoreRequest.onsuccess = function (event) {
           if (!pregnancy.id){
@@ -87,6 +87,17 @@ export class PregnancyRepository implements OnInit {
         objectStoreRequest.onerror = reject;
       }));
 
+  }
+
+  deletePregnancy(pregnancy: Pregnancy): Promise<boolean> {
+        return this.openObjectStore("readwrite")
+      .then(objectStore => new Promise<boolean>(function (resolve, reject) {
+        let objectStoreRequest = objectStore.delete(pregnancy.id);
+        objectStoreRequest.onsuccess = function (event) {          
+          resolve(true);
+        };
+        objectStoreRequest.onerror = reject;
+      }));
   }
 
   private openObjectStore(mode?: string): Promise<IDBObjectStore> {

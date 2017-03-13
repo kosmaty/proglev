@@ -1,33 +1,8 @@
 <div class="table-responsive">
-  <!--<table class="table table-striped">-->
-    <!--<thead>-->
-    <!--<tr>-->
-      <!--<th>Nazwisko</th>-->
-      <!--<th>Imię</th>-->
-      <!--<th>E-mail</th>-->
-      <!--<th></th>-->
-    <!--</tr>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--<tr *ngFor="let pregnancy of pregnancies">-->
-      <!--<td>{{pregnancy.patientLastName}}</td>-->
-      <!--<td>{{pregnancy.patientFirstName}}</td>-->
-      <!--<td>{{pregnancy.email}}</td>-->
-      <!--<td>-->
-        <!--<a [routerLink]="['/pregnancy', pregnancy.id]" class="btn btn-default btn-xs">Pokaż</a>-->
-        <!--<button class="btn btn-danger btn-xs">Usuń</button>-->
-      <!--</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-  <!--</table>-->
   <div *ngFor="let pregnancy of pregnancies" style="padding-bottom: 10px">
     <h4><a [routerLink]="['/pregnancy', pregnancy.id]">
       {{pregnancy.patientFirstName}} {{pregnancy.patientLastName}}
     </a></h4>
     {{pregnancy.email}}
   </div>
-
-  <!--<a *ngFor="let pregnancy of pregnancies" [routerLink]="['/pregnancy', pregnancy.id]">-->
-    <!--<div>{{pregnancy.patientLastName}}</div>-->
-  <!--</a>-->
 </div>

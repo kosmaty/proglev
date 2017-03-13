@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Location}                 from '@angular/common';
-import {Pregnancy, ProgesteroneLevelMeasurement} from "./pregnancy";
-import {PregnancyRepository} from "./pregnancy.repository";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Pregnancy, ProgesteroneLevelMeasurement } from "./pregnancy";
+import { PregnancyRepository } from "./pregnancy.repository";
 import 'rxjs/add/operator/switchMap';
 
 
@@ -13,18 +13,25 @@ import 'rxjs/add/operator/switchMap';
 export class AddMeasurementComponent implements OnInit {
   pregnancy: Pregnancy = new Pregnancy();
   measurement: ProgesteroneLevelMeasurement = new ProgesteroneLevelMeasurement();
+  measurementIndex: number;
 
   constructor(private pregnancyRepository: PregnancyRepository,
-              private route: ActivatedRoute,
-              private router: Router,
-              private location: Location) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.params.subscribe(params => {
-      this.pregnancyRepository.getById(+params['pregnancyId'])
+      const pregnancyId = +params['pregnancyId'];
+      const measurementIndex = +params['measurementId'];
+      this.pregnancyRepository.getById(pregnancyId)
         .then(pregnancy => {
           this.pregnancy = pregnancy;
+          if (measurementIndex >= 0) {
+            this.measurement = pregnancy.measurements[measurementIndex];
+            this.measurementIndex = measurementIndex;
+          }
         })
     });
 
@@ -32,7 +39,11 @@ export class AddMeasurementComponent implements OnInit {
   }
 
   addMeasurement() {
-    this.pregnancy.measurements.push(this.measurement);
+    if (this.measurementIndex >= 0) {
+      this.pregnancy.measurements[this.measurementIndex] = this.measurement;
+    } else {
+      this.pregnancy.measurements.push(this.measurement);
+    }
     this.pregnancyRepository.savePregnancy(this.pregnancy)
       .then(pregnancy => {
         return this.router.navigate(["pregnancy", +pregnancy.id]);
@@ -41,7 +52,7 @@ export class AddMeasurementComponent implements OnInit {
 
   }
 
-  cancel(){
+  cancel() {
     this.location.back();
   }
 

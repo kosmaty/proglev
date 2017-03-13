@@ -29,7 +29,8 @@ import {PregnancyRepository} from "./pregnancy.repository";
       {path: 'pregnancy/:id', component: PregnancyDetailsComponent},
       {path: 'pregnancy/:id/edit', component: AddPregnancyComponent},
       {path: 'add-pregnancy', component: AddPregnancyComponent},
-      {path: 'pregnancy/:pregnancyId/measurement/add', component: AddMeasurementComponent}
+      {path: 'pregnancy/:pregnancyId/measurement/add', component: AddMeasurementComponent},
+      {path: 'pregnancy/:pregnancyId/measurement/:measurementId', component: AddMeasurementComponent}
     ],{ useHash: true })
   ],
   providers: [PregnancyRepository],

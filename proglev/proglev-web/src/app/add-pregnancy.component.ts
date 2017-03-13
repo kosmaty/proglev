@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Location}                 from '@angular/common';
-import {Pregnancy, ProgesteroneLevelMeasurement} from "./pregnancy";
-import {PregnancyRepository} from "./pregnancy.repository";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Pregnancy, ProgesteroneLevelMeasurement } from "./pregnancy";
+import { PregnancyRepository } from "./pregnancy.repository";
 import 'rxjs/add/operator/switchMap';
 
 
@@ -13,11 +13,12 @@ import 'rxjs/add/operator/switchMap';
 export class AddPregnancyComponent implements OnInit {
   pregnancy: Pregnancy = new Pregnancy();
   title: string = "";
+  isEdit: boolean = false;
 
   constructor(private pregnancyRepository: PregnancyRepository,
-              private route: ActivatedRoute,
-              private router: Router,
-              private location: Location) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location) {
   }
 
   ngOnInit() {
@@ -27,7 +28,8 @@ export class AddPregnancyComponent implements OnInit {
         this.pregnancyRepository.getById(+params['id'])
           .then(pregnancy => {
             this.pregnancy = pregnancy;
-            this.title = pregnancy.patientFirstName + " " + pregnancy.patientLastName
+            this.title = pregnancy.patientFirstName + " " + pregnancy.patientLastName;
+            this.isEdit = true;
           })
       } else {
         this.title = "Nowa pacjentka";
@@ -36,16 +38,26 @@ export class AddPregnancyComponent implements OnInit {
   }
 
   onSubmit() {
+    this.save();
+
+  }
+
+  save() {
     this.pregnancyRepository.savePregnancy(this.pregnancy)
       .then(pregnancy => {
         return this.router.navigate(["pregnancy", +pregnancy.id]);
       })
       .catch(error => console.log(error));
-
   }
 
-  cancel(){
+  cancel() {
     this.location.back();
+  }
+
+  delete() {
+    this.pregnancyRepository.deletePregnancy(this.pregnancy)
+      .then(result => this.router.navigate([""]))
+      .catch(error => console.log(error));
   }
 
 

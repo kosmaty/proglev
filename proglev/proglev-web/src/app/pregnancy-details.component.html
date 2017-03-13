@@ -2,13 +2,13 @@
   <div class="page-header">
     <h1>
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-11 col-xs-10">
           {{pregnancy.patientFirstName}}
-          {{pregnancy.patientLastName}}
-          <a class="btn btn-default btn-xs fa fa-pencil" [routerLink]="['edit']"></a>
+          {{pregnancy.patientLastName}} 
+          <a class="btn btn-default btn-xs fa fa-pencil" [routerLink]="['edit']"></a> 
         </div>
-        <div class="col-sm-4 text-right">
-          <a class="btn btn-primary" [routerLink]="['measurement', 'add']">Dodaj wynik badania</a>
+        <div class="col-sm-1 col-xs-2">
+          <a class="btn btn-xs btn-primary fa fa-plus" [routerLink]="['measurement', 'add']" title="Dodaj wynik badania"></a>
         </div>
       </div>
 
